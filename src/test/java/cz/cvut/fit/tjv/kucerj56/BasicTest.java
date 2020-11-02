@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class BasicTest {
+    @Test
     public void demoTest() {
         assertEquals(1,1);
     }
