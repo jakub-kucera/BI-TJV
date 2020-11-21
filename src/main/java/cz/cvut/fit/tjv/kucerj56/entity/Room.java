@@ -9,17 +9,22 @@ import java.util.Set;
 public class Room {
     @Id
     @GeneratedValue
-    private int id_room;
+    @Column(name = "ID_ROOM")
+    private int id;
 
     @NotNull
-    private int number_room;
+    @Column(name = "NUMBER_ROOM")
+    private int numberRoom;
 
     @NotNull
-    private Character quarantine_room;
+    @Column(name = "QUARANTINE_ROOM")
+    private Character quarantineRoom;
 
-    private Double price_per_day;
+    @Column(name = "PRICE_PER_DAY")
+    private Double pricePerDay;
 
-    private int number_of_beds;
+    @Column(name = "NUMBER_OF_BEDS")
+    private int numberOfBeds;
 
     @ManyToOne
     @JoinColumn(name = "DORMATORY_ID_DORMATORY")
@@ -32,49 +37,49 @@ public class Room {
     public Room() {
     }
 
-    public Room(int number_room, Character quarantine_room, Double price_per_day, int number_of_beds, Dormitory dormitory, Set<Student> students) {
-        this.number_room = number_room;
-        this.quarantine_room = quarantine_room;
-        this.price_per_day = price_per_day;
-        this.number_of_beds = number_of_beds;
+    public Room(int numberRoom, Character quarantineRoom, Double pricePerDay, int numberOfBeds, Dormitory dormitory, Set<Student> students) {
+        this.numberRoom = numberRoom;
+        this.quarantineRoom = quarantineRoom;
+        this.pricePerDay = pricePerDay;
+        this.numberOfBeds = numberOfBeds;
         this.dormitory = dormitory;
         this.students = students;
     }
 
-    public int getId_room() {
-        return id_room;
+    public int getId() {
+        return id;
     }
 
-    public int getNumber_room() {
-        return number_room;
+    public int getNumberRoom() {
+        return numberRoom;
     }
 
-    public void setNumber_room(int number_room) {
-        this.number_room = number_room;
+    public void setNumberRoom(int numberRoom) {
+        this.numberRoom = numberRoom;
     }
 
-    public Character getQuarantine_room() {
-        return quarantine_room;
+    public Character getQuarantineRoom() {
+        return quarantineRoom;
     }
 
-    public void setQuarantine_room(Character quarantine_room) {
-        this.quarantine_room = quarantine_room;
+    public void setQuarantineRoom(Character quarantineRoom) {
+        this.quarantineRoom = quarantineRoom;
     }
 
-    public Double getPrice_per_day() {
-        return price_per_day;
+    public Double getPricePerDay() {
+        return pricePerDay;
     }
 
-    public void setPrice_per_day(Double price_per_day) {
-        this.price_per_day = price_per_day;
+    public void setPricePerDay(Double pricePerDay) {
+        this.pricePerDay = pricePerDay;
     }
 
-    public int getNumber_of_beds() {
-        return number_of_beds;
+    public int getNumberOfBeds() {
+        return numberOfBeds;
     }
 
-    public void setNumber_of_beds(int number_of_beds) {
-        this.number_of_beds = number_of_beds;
+    public void setNumberOfBeds(int numberOfBeds) {
+        this.numberOfBeds = numberOfBeds;
     }
 
     public Dormitory getDormitory() {

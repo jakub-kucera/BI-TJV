@@ -9,7 +9,8 @@ import java.util.Set;
 public class Faculty {
     @Id
     @GeneratedValue
-    private int id_faculty;
+    @Column(name = "ID_FACULTY")
+    private int id;
 
     @NotNull
     private String name;
@@ -26,8 +27,8 @@ public class Faculty {
         this.students = students;
     }
 
-    public int getId_faculty() {
-        return id_faculty;
+    public int getId() {
+        return id;
     }
 
     public String getName() {

@@ -9,9 +9,11 @@ import java.util.Set;
 public class Dormitory {
     @Id
     @GeneratedValue
-    private int id_dormatory;
+    @Column(name = "ID_DORMATORY")
+    private int id;
 
     @NotNull
+    @Column(name = "NAME")
     private String name;
 
     @OneToMany//(targetEntity = Student.class)
@@ -26,8 +28,8 @@ public class Dormitory {
         this.rooms = rooms;
     }
 
-    public int getId_dormatory() {
-        return id_dormatory;
+    public int getId() {
+        return id;
     }
 
     public String getName() {

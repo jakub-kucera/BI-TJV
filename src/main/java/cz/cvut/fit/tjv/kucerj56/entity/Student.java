@@ -10,18 +10,21 @@ import java.util.Set;
 public class Student {
     @Id
     @GeneratedValue
-    private int id_student;
+    @Column(name = "ID_STUDENT")
+    private int id;
 
     @NotNull
     private String name;
 
-    private Date date_of_birth;
+    @Column(name = "DATE_OF_BIRTH")
+    private Date dateOfBirth;
 
     @ManyToOne
     @JoinColumn(name = "ROOM_ID_ROOM")
     private Room room;
 
-    private Double state_of_account;
+    @Column(name = "STATE_OF_ACCOUNT")
+    private Double stateOfAccount;
 
     @ManyToMany
     @JoinTable(name = "STUDY", joinColumns = @JoinColumn(name = "STUDENT_ID_STUDENT"), inverseJoinColumns = @JoinColumn(name = "FACULTY_ID_FACULTY"))
@@ -30,16 +33,16 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, Date date_of_birth, Room room, Double state_of_account, Set<Faculty> faculties) {
+    public Student(String name, Date dateOfBirth, Room room, Double stateOfAccount, Set<Faculty> faculties) {
         this.name = name;
-        this.date_of_birth = date_of_birth;
+        this.dateOfBirth = dateOfBirth;
         this.room = room;
-        this.state_of_account = state_of_account;
+        this.stateOfAccount = stateOfAccount;
         this.faculties = faculties;
     }
 
-    public int getId_student() {
-        return id_student;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -50,35 +53,35 @@ public class Student {
         this.name = name;
     }
 
-    public Date getDate_of_birth() {
-        return date_of_birth;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDate_of_birth(Date date_Of_Birth) {
-        this.date_of_birth = date_Of_Birth;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Room getRoom() {
         return room;
     }
 
-    public void setRoom(Room room_Id_Room) {
-        this.room = room_Id_Room;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public Double getState_of_account() {
-        return state_of_account;
+    public Double getStateOfAccount() {
+        return stateOfAccount;
     }
 
-    public void setState_of_account(Double state_Of_Account) {
-        this.state_of_account = state_Of_Account;
+    public void setStateOfAccount(Double stateOfAccount) {
+        this.stateOfAccount = stateOfAccount;
     }
 
     public Set<Faculty> getFaculties() {
         return faculties;
     }
 
-    public void setFaculties(Set<Faculty> students) {
-        this.faculties = students;
+    public void setFaculties(Set<Faculty> faculties) {
+        this.faculties = faculties;
     }
 }
