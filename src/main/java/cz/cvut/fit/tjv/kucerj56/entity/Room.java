@@ -23,7 +23,7 @@ public class Room {
 
     @ManyToOne
     @JoinColumn(name = "DORMATORY_ID_DORMATORY")
-    private Dormatory dormatory;
+    private Dormitory dormitory;
 
     @OneToMany//(targetEntity = Student.class)
     @JoinColumn(name = "ROOM_ID_ROOM")
@@ -32,12 +32,12 @@ public class Room {
     public Room() {
     }
 
-    public Room(int number_room, Character quarantine_room, Double price_per_day, int number_of_beds, Dormatory dormatory, Set<Student> students) {
+    public Room(int number_room, Character quarantine_room, Double price_per_day, int number_of_beds, Dormitory dormitory, Set<Student> students) {
         this.number_room = number_room;
         this.quarantine_room = quarantine_room;
         this.price_per_day = price_per_day;
         this.number_of_beds = number_of_beds;
-        this.dormatory = dormatory;
+        this.dormitory = dormitory;
         this.students = students;
     }
 
@@ -77,12 +77,12 @@ public class Room {
         this.number_of_beds = number_of_beds;
     }
 
-    public Dormatory getDormatory() {
-        return dormatory;
+    public Dormitory getDormitory() {
+        return dormitory;
     }
 
-    public void setDormatory(Dormatory dormatory) {
-        this.dormatory = dormatory;
+    public void setDormitory(Dormitory dormitory) {
+        this.dormitory = dormitory;
     }
 
     public Set<Student> getStudents() {

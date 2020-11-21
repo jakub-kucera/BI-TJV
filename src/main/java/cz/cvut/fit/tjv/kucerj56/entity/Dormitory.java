@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Dormatory {
+public class Dormitory {
     @Id
     @GeneratedValue
     private int id_dormatory;
@@ -18,10 +18,10 @@ public class Dormatory {
     @JoinColumn(name = "DORMATORY_ID_DORMATORY")
     private Set<Room> rooms;
 
-    public Dormatory() {
+    public Dormitory() {
     }
 
-    public Dormatory(String name, Set<Room> rooms) {
+    public Dormitory(String name, Set<Room> rooms) {
         this.name = name;
         this.rooms = rooms;
     }
