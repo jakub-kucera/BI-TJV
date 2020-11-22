@@ -17,12 +17,14 @@ import java.util.stream.Collectors;
 @Service
 public class DormitoryService {
     private final DormitoryRepository dormitoryRepository;
+    private final RoomRepository roomRepository;
 //    private final RoomService roomService;
 
     @Autowired
-    public DormitoryService(DormitoryRepository dormitoryRepository/*, RoomService roomService*/) {
+    public DormitoryService(DormitoryRepository dormitoryRepository,/*, RoomService roomService*/RoomRepository roomRepository) {
         this.dormitoryRepository = dormitoryRepository;
 //        this.roomService = roomService;
+        this.roomRepository = roomRepository;
     }
 
     public List<Dormitory> findAll() {
@@ -50,7 +52,7 @@ public class DormitoryService {
     }
 
     private DormitoryDTO toDTO(Dormitory dormitory) {
-        return new DormitoryDTO(dormitory.getId(), dormitory.getName()/*, dormitory.getRooms().stream().map(Room::getId).collect(Collectors.toList())*/);
+        return new DormitoryDTO(dormitory.getId(), dormitory.getName(), dormitory.getRooms().stream().map(Room::getId).collect(Collectors.toList()));
     }
 
     private Optional<DormitoryDTO> toDTO(Optional<Dormitory> optionalDormitory) {
@@ -63,12 +65,13 @@ public class DormitoryService {
 
     public DormitoryDTO create (DormitoryCreateDTO dormitoryCreateDTO) throws Exception {
 //        List<Room> rooms = roomService.findByIds(dormitoryCreateDTO.getRoomIds());
-//        int roomsMissing = dormitoryCreateDTO.getRoomIds().size() - rooms.size();
-//        if(roomsMissing != 0) {
-//            throw new Exception("Number of rooms missing is: " + roomsMissing);
-//        }
+        List<Room> rooms = roomRepository.findAllById(dormitoryCreateDTO.getRoomIds());
+        int roomsMissing = dormitoryCreateDTO.getRoomIds().size() - rooms.size();
+        if(roomsMissing != 0) {
+            throw new Exception("Number of rooms missing is: " + roomsMissing);
+        }
 
-        Dormitory dormitory = new Dormitory(dormitoryCreateDTO.getName()/*, rooms*/);
+        Dormitory dormitory = new Dormitory(dormitoryCreateDTO.getName(), rooms);
         return toDTO(dormitoryRepository.save(dormitory));
     }
 
@@ -81,13 +84,14 @@ public class DormitoryService {
         Dormitory dormitory = optionalDormitory.get();
 
 //        List<Room> rooms = roomService.findByIds(dormitoryCreateDTO.getRoomIds());
-//        int roomsMissing = dormitoryCreateDTO.getRoomIds().size() - rooms.size();
-//        if(roomsMissing != 0) {
-//            throw new Exception("Number of rooms missing is: " + roomsMissing);
-//        }
+        List<Room> rooms = roomRepository.findAllById(dormitoryCreateDTO.getRoomIds());
+        int roomsMissing = dormitoryCreateDTO.getRoomIds().size() - rooms.size();
+        if(roomsMissing != 0) {
+            throw new Exception("Number of rooms missing is: " + roomsMissing);
+        }
 
         dormitory.setName(dormitoryCreateDTO.getName());
-//        dormitory.setRooms(rooms);
+        dormitory.setRooms(rooms);
 
         return toDTO(dormitory);
     }

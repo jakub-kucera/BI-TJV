@@ -4,6 +4,8 @@ import cz.cvut.fit.tjv.kucerj56.dto.StudentCreateDTO;
 import cz.cvut.fit.tjv.kucerj56.dto.StudentDTO;
 import cz.cvut.fit.tjv.kucerj56.entity.*;
 import cz.cvut.fit.tjv.kucerj56.entity.Student;
+import cz.cvut.fit.tjv.kucerj56.repository.FacultyRepository;
+import cz.cvut.fit.tjv.kucerj56.repository.RoomRepository;
 import cz.cvut.fit.tjv.kucerj56.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,14 +18,18 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
-    private final FacultyService facultyService;
-    private final RoomService roomService;
+//    private final FacultyService facultyService;
+    private final FacultyRepository facultyRepository;
+//    private final RoomService roomService;
+    private final RoomRepository roomRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository, FacultyService facultyService, RoomService roomService) {
+    public StudentService(StudentRepository studentRepository,/* FacultyService facultyService, */FacultyRepository facultyRepository,/* RoomService roomService, */RoomRepository roomRepository) {
         this.studentRepository = studentRepository;
-        this.facultyService = facultyService;
-        this.roomService = roomService;
+//        this.facultyService = facultyService;
+        this.facultyRepository = facultyRepository;
+        this.roomRepository = roomRepository;
+//        this.roomService = roomService;
     }
 
     public List<Student> findAll() {
@@ -69,14 +75,16 @@ public class StudentService {
     }
 
     public StudentDTO create (StudentCreateDTO studentCreateDTO) throws Exception {
-        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
+//        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
+        List<Faculty> faculties = facultyRepository.findAllById(studentCreateDTO.getFacultyIds());
         int facultiesMissing = studentCreateDTO.getFacultyIds().size() - faculties.size();
         if(facultiesMissing != 0) {
             throw new Exception("Number of faculties missing is: " + facultiesMissing);
         }
 
         Integer roomId = studentCreateDTO.getRoomId();
-        Room room = roomId == null ? null : roomService.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
+//        Room room = roomId == null ? null : roomService.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
+        Room room = roomId == null ? null : roomRepository.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
 
         Student student = new Student(
                 studentCreateDTO.getName(),
@@ -95,14 +103,16 @@ public class StudentService {
         }
         Student student = optionalStudent.get();
 
-        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
+//        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
+        List<Faculty> faculties = facultyRepository.findAllById(studentCreateDTO.getFacultyIds());
         int facultiesMissing = studentCreateDTO.getFacultyIds().size() - faculties.size();
         if(facultiesMissing != 0) {
             throw new Exception("Number of faculties missing is: " + facultiesMissing);
         }
 
         Integer roomId = studentCreateDTO.getRoomId();
-        Room room = roomId == null ? null : roomService.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
+//        Room room = roomId == null ? null : roomService.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
+        Room room = roomId == null ? null : roomRepository.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
 
         student.setName(studentCreateDTO.getName());
         student.setDateOfBirth(studentCreateDTO.getDateOfBirth());

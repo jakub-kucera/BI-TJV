@@ -5,7 +5,9 @@ import cz.cvut.fit.tjv.kucerj56.dto.RoomDTO;
 import cz.cvut.fit.tjv.kucerj56.entity.Dormitory;
 import cz.cvut.fit.tjv.kucerj56.entity.Room;
 import cz.cvut.fit.tjv.kucerj56.entity.Student;
+import cz.cvut.fit.tjv.kucerj56.repository.DormitoryRepository;
 import cz.cvut.fit.tjv.kucerj56.repository.RoomRepository;
+import cz.cvut.fit.tjv.kucerj56.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +19,18 @@ import java.util.stream.Collectors;
 @Service
 public class RoomService {
     private final RoomRepository roomRepository;
+    private final StudentRepository studentRepository;
+    private final DormitoryRepository dormitoryRepository;
 //    private final StudentService studentService;
-    private final DormitoryService dormitoryService;
+//    private final DormitoryService dormitoryService;
 
     @Autowired
-    public RoomService(RoomRepository roomRepository, /*StudentService studentService, */DormitoryService dormitoryService) {
+    public RoomService(RoomRepository roomRepository,/*, StudentService studentService, DormitoryService dormitoryService*/StudentRepository studentRepository, DormitoryRepository dormitoryRepository) {
         this.roomRepository = roomRepository;
 //        this.studentService = studentService;
-        this.dormitoryService = dormitoryService;
+//        this.dormitoryService = dormitoryService;
+        this.studentRepository = studentRepository;
+        this.dormitoryRepository = dormitoryRepository;
     }
 
     public List<Room> findAll() {
@@ -58,8 +64,8 @@ public class RoomService {
                 room.getQuarantineRoom(),
                 room.getPricePerDay(),
                 room.getNumberOfBeds(),
-                room.getDormitory().getId()/*,
-                room.getStudents().stream().map(Student::getId).collect(Collectors.toList())*/);
+                room.getDormitory().getId(),
+                room.getStudents().stream().map(Student::getId).collect(Collectors.toList()));
     }
 
     private Optional<RoomDTO> toDTO(Optional<Room> optionalDormitory) {
@@ -71,21 +77,23 @@ public class RoomService {
 
     public RoomDTO create (RoomCreateDTO roomCreateDTO) throws Exception {
 //        List<Student> students = studentService.findByIds(roomCreateDTO.getStudentIds());
-//        int studentsMissing = roomCreateDTO.getStudentIds().size() - students.size();
-//        if(studentsMissing != 0) {
-//            throw new Exception("Number of rooms missing is: " + studentsMissing);
-//        }
+        List<Student> students = studentRepository.findAllById(roomCreateDTO.getStudentIds());
+        int studentsMissing = roomCreateDTO.getStudentIds().size() - students.size();
+        if(studentsMissing != 0) {
+            throw new Exception("Number of rooms missing is: " + studentsMissing);
+        }
 
         Integer dormitoryId = roomCreateDTO.getDormitoryId();
-        Dormitory dormitory = dormitoryId == null ? null : dormitoryService.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
+//        Dormitory dormitory = dormitoryId == null ? null : dormitoryService.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
+        Dormitory dormitory = dormitoryId == null ? null : dormitoryRepository.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
 
         Room room = new Room(
                 roomCreateDTO.getNumberRoom(),
                 roomCreateDTO.getQuarantineRoom(),
                 roomCreateDTO.getPricePerDay(),
                 roomCreateDTO.getNumberOfBeds(),
-                dormitory/*,
-                students*/);
+                dormitory,
+                students);
         return toDTO(roomRepository.save(room));
     }
 
@@ -96,22 +104,24 @@ public class RoomService {
             throw new Exception("No such room with id: " + id);
         }
         Room room = optionalRoom.get();
-/*
-        List<Student> students = studentService.findByIds(roomCreateDTO.getStudentIds());
+
+//        List<Student> students = studentService.findByIds(roomCreateDTO.getStudentIds());
+        List<Student> students = studentRepository.findAllById(roomCreateDTO.getStudentIds());
         int studentsMissing = roomCreateDTO.getStudentIds().size() - students.size();
         if(studentsMissing != 0) {
             throw new Exception("Number of rooms missing is: " + studentsMissing);
-        }*/
+        }
 
         Integer dormitoryId = roomCreateDTO.getDormitoryId();
-        Dormitory dormitory = dormitoryId == null ? null : dormitoryService.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
+//        Dormitory dormitory = dormitoryId == null ? null : dormitoryService.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
+        Dormitory dormitory = dormitoryId == null ? null : dormitoryRepository.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
 
         room.setNumberRoom(roomCreateDTO.getNumberRoom());
         room.setQuarantineRoom(roomCreateDTO.getQuarantineRoom());
         room.setPricePerDay(roomCreateDTO.getPricePerDay());
         room.setNumberOfBeds(roomCreateDTO.getNumberOfBeds());
         room.setDormitory(dormitory);
-//        room.setStudents(students);
+        room.setStudents(students);
 
         return toDTO(room);
     }

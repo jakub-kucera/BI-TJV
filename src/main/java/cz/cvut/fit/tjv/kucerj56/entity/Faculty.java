@@ -15,17 +15,17 @@ public class Faculty {
 
     @NotNull
     private String name;
-//
-//    @ManyToMany
-//    @JoinTable(name = "study", joinColumns = @JoinColumn(name = "faculty_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-//    private List<Student> students;
+
+    @ManyToMany
+    @JoinTable(name = "study", joinColumns = @JoinColumn(name = "faculty_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> students;
 
     public Faculty() {}
 
 
-    public Faculty(String name/*, List<Student> students*/) {
+    public Faculty(String name, List<Student> students) {
         this.name = name;
-//        this.students = students;
+        this.students = students;
     }
 
     public int getId() {
@@ -40,11 +40,11 @@ public class Faculty {
         this.name = name;
     }
 
-//    public List<Student> getStudents() {
-//        return students;
-//    }
-//
-//    public void setStudents(List<Student> students) {
-//        this.students = students;
-//    }
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 }

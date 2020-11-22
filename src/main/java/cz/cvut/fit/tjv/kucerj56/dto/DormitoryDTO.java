@@ -9,12 +9,12 @@ import java.util.List;
 public class DormitoryDTO {
     private final int id;
     private final String name;
-//    private final List<Integer> roomIds;
+    private final List<Integer> roomIds;
 
-    public DormitoryDTO(int id, String name/*, List<Integer> roomIds*/) {
+    public DormitoryDTO(int id, String name, List<Integer> roomIds) {
         this.id = id;
         this.name = name;
-//        this.roomIds = roomIds;
+        this.roomIds = roomIds;
     }
 
     public int getId() {
@@ -25,7 +25,7 @@ public class DormitoryDTO {
         return name;
     }
 
-//    public List<Integer> getRoomIds() {
-//        return roomIds;
-//    }
+    public List<Integer> getRoomIds() {
+        return roomIds;
+    }
 }

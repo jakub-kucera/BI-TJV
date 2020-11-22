@@ -31,20 +31,20 @@ public class Room {
     @JoinColumn(name = "dormitory_id")
     private Dormitory dormitory;
 
-//    @OneToMany//(targetEntity = Student.class)
-//    @JoinColumn(name = "room_id")
-//    private List<Student> students;
+    @OneToMany//(targetEntity = Student.class)
+    @JoinColumn(name = "room_id")
+    private List<Student> students;
 
     public Room() {
     }
 
-    public Room(int numberRoom, Boolean quarantineRoom, Double pricePerDay, int numberOfBeds, Dormitory dormitory/*, List<Student> students*/) {
+    public Room(int numberRoom, Boolean quarantineRoom, Double pricePerDay, int numberOfBeds, Dormitory dormitory, List<Student> students) {
         this.numberRoom = numberRoom;
         this.quarantineRoom = quarantineRoom;
         this.pricePerDay = pricePerDay;
         this.numberOfBeds = numberOfBeds;
         this.dormitory = dormitory;
-//        this.students = students;
+        this.students = students;
     }
 
     public int getId() {
@@ -91,11 +91,11 @@ public class Room {
         this.dormitory = dormitory;
     }
 
-//    public List<Student> getStudents() {
-//        return students;
-//    }
-//
-//    public void setStudents(List<Student> students) {
-//        this.students = students;
-//    }
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 }

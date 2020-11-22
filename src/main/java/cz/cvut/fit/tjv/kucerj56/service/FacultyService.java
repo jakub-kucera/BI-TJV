@@ -12,18 +12,19 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
 
     private final FacultyRepository facultyRepository;
+    private final StudentRepository studentRepository;
 //    private final StudentService studentService;
 
     @Autowired
-    public FacultyService(FacultyRepository facultyRepository/*, StudentService studentService*/) {
+    public FacultyService(FacultyRepository facultyRepository, /*StudentService studentService, */StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
+        this.studentRepository = studentRepository;
 //        this.studentService = studentService;
     }
 
@@ -52,7 +53,7 @@ public class FacultyService {
     }
 
     private FacultyDTO toDTO(Faculty faculty) {
-        return new FacultyDTO(faculty.getId(), faculty.getName()/*, faculty.getStudents().stream().map(Student::getId).collect(Collectors.toList())*/);
+        return new FacultyDTO(faculty.getId(), faculty.getName(), faculty.getStudents().stream().map(Student::getId).collect(Collectors.toList()));
     }
 
     private Optional<FacultyDTO> toDTO(Optional<Faculty> optionalFaculty) {
@@ -64,12 +65,13 @@ public class FacultyService {
 
     public FacultyDTO create(FacultyCreateDTO facultyCreateDTO) throws Exception {
 //        List<Student> students = studentService.findByIds(facultyCreateDTO.getStudents());
-//        int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
-//        if(studentsMissing == 0) {
-//            throw new Exception("Number of students missing is: " + studentsMissing);
-//        }
+        List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudents());
+        int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
+        if(studentsMissing == 0) {
+            throw new Exception("Number of students missing is: " + studentsMissing);
+        }
 
-        return toDTO(facultyRepository.save( new Faculty(facultyCreateDTO.getName()/*,students*/)));
+        return toDTO(facultyRepository.save( new Faculty(facultyCreateDTO.getName(),students)));
     }
 
     @Transactional
@@ -79,15 +81,16 @@ public class FacultyService {
             throw new Exception("No such faculty with id: " + id);
         }
         Faculty faculty = optionalFaculty.get();
-//
+
 //        List<Student> students = studentService.findByIds(facultyCreateDTO.getStudents());
-//        int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
-//        if(studentsMissing == 0) {
-//            throw new Exception("Number of students missing is: " + studentsMissing);
-//        }
+        List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudents());
+        int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
+        if(studentsMissing == 0) {
+            throw new Exception("Number of students missing is: " + studentsMissing);
+        }
 
         faculty.setName(facultyCreateDTO.getName());
-//        faculty.setStudents(students);
+        faculty.setStudents(students);
         return toDTO(faculty);
     }
 
