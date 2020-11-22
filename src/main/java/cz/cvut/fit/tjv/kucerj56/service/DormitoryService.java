@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 public class DormitoryService {
     private final DormitoryRepository dormitoryRepository;
     private final RoomRepository roomRepository;
-//    private final RoomService roomService;
+    private final RoomService roomService;
 
     @Autowired
-    public DormitoryService(DormitoryRepository dormitoryRepository,/*, RoomService roomService*/RoomRepository roomRepository) {
+    public DormitoryService(DormitoryRepository dormitoryRepository, RoomService roomService, RoomRepository roomRepository) {
         this.dormitoryRepository = dormitoryRepository;
-//        this.roomService = roomService;
+        this.roomService = roomService;
         this.roomRepository = roomRepository;
     }
 
@@ -98,9 +98,17 @@ public class DormitoryService {
 
     @Transactional
     public void delete(int id) throws Exception {
-        if (!findById(id).isPresent()) {
+        Optional<Dormitory> optionalDormitory = findById(id);
+        if(!optionalDormitory.isPresent()) {
             throw new Exception("No such dormitory with id: " + id);
         }
+
+
+        List<Integer> roomIds = toDTO(optionalDormitory.get()).getRoomIds();
+        for (Integer roomId : roomIds) {
+            roomService.delete(roomId);
+        }
+
 
         dormitoryRepository.deleteById(id);
 

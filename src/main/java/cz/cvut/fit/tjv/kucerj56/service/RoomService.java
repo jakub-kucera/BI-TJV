@@ -21,13 +21,13 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final StudentRepository studentRepository;
     private final DormitoryRepository dormitoryRepository;
-//    private final StudentService studentService;
+    private final StudentService studentService;
 //    private final DormitoryService dormitoryService;
 
     @Autowired
-    public RoomService(RoomRepository roomRepository,/*, StudentService studentService, DormitoryService dormitoryService*/StudentRepository studentRepository, DormitoryRepository dormitoryRepository) {
+    public RoomService(RoomRepository roomRepository, StudentService studentService, /*, DormitoryService dormitoryService*/StudentRepository studentRepository, DormitoryRepository dormitoryRepository) {
         this.roomRepository = roomRepository;
-//        this.studentService = studentService;
+        this.studentService = studentService;
 //        this.dormitoryService = dormitoryService;
         this.studentRepository = studentRepository;
         this.dormitoryRepository = dormitoryRepository;
@@ -128,8 +128,23 @@ public class RoomService {
 
     @Transactional
     public void delete(int id) throws Exception {
-        if (!findById(id).isPresent()) {
+        Optional<Room> optionalRoom = findById(id);
+        if(!optionalRoom.isPresent()) {
             throw new Exception("No such room with id: " + id);
+        }
+
+//        Room room = optionalRoom.get();
+//        RoomDTO roomDTO = toDTO(room);
+//        List<Integer> studentIds = roomDTO.getStudentIds();
+//        int studentsMissing = room.getStudents().size() - studentIds.size();
+//        if(studentsMissing != 0) {
+//            throw new Exception("Number of rooms missing is: " + studentsMissing);
+//        }
+//        studentIds.forEach((x) -> studentService.delete(x));
+
+        List<Integer> studentIds = toDTO(optionalRoom.get()).getStudentIds();
+        for (Integer studentId : studentIds) {
+            studentService.delete(studentId);
         }
 
         roomRepository.deleteById(id);
