@@ -5,18 +5,18 @@ import java.util.List;
 public class FacultyCreateDTO {
 
     private final String name;
-    private final List<Integer> studentIds;
+//    private final List<Integer> studentIds;
 
-    public FacultyCreateDTO(String name, List<Integer> studentIds) {
+    public FacultyCreateDTO(String name/*, List<Integer> studentIds*/) {
         this.name = name;
-        this.studentIds = studentIds;
+//        this.studentIds = studentIds;
     }
 
 
     public String getName() {
         return name;
     }
-    public List<Integer> getStudents() {
-        return studentIds;
-    }
+//    public List<Integer> getStudents() {
+//        return studentIds;
+//    }
 }

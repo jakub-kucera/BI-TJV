@@ -10,12 +10,12 @@ public class FacultyDTO {
 
     private final int id;
     private final String name;
-    private final List<Integer> studentIds;
+//    private final List<Integer> studentIds;
 
-    public FacultyDTO(int id, String name, List<Integer> studentIDs) {
+    public FacultyDTO(int id, String name/*, List<Integer> studentIDs*/) {
         this.id = id;
         this.name = name;
-        this.studentIds = studentIDs;
+//        this.studentIds = studentIDs;
     }
 
 
@@ -25,7 +25,7 @@ public class FacultyDTO {
     public String getName() {
         return name;
     }
-    public List<Integer> getStudents() {
-        return studentIds;
-    }
+//    public List<Integer> getStudents() {
+//        return studentIds;
+//    }
 }

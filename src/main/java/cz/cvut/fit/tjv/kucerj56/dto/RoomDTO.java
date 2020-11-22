@@ -14,16 +14,16 @@ public class RoomDTO {
     private final Double pricePerDay;
     private final int numberOfBeds;
     private final Integer dormitoryId;
-    private final List<Integer> studentIds;
+//    private final List<Integer> studentIds;
 
-    public RoomDTO(int id, int numberRoom, Boolean quarantineRoom, Double pricePerDay, int numberOfBeds, Integer dormitoryId, List<Integer> studentIds) {
+    public RoomDTO(int id, int numberRoom, Boolean quarantineRoom, Double pricePerDay, int numberOfBeds, Integer dormitoryId/*, List<Integer> studentIds*/) {
         this.id = id;
         this.numberRoom = numberRoom;
         this.quarantineRoom = quarantineRoom;
         this.pricePerDay = pricePerDay;
         this.numberOfBeds = numberOfBeds;
         this.dormitoryId = dormitoryId;
-        this.studentIds = studentIds;
+//        this.studentIds = studentIds;
     }
 
     public int getId() {
@@ -50,7 +50,7 @@ public class RoomDTO {
         return dormitoryId;
     }
 
-    public List<Integer> getStudentIds() {
-        return studentIds;
-    }
+//    public List<Integer> getStudentIds() {
+//        return studentIds;
+//    }
 }

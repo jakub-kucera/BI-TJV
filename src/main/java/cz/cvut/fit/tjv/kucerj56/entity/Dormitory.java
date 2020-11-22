@@ -17,16 +17,16 @@ public class Dormitory {
 //    @Column(name = "NAME")
     private String name;
 
-    @OneToMany//(targetEntity = Student.class)
-    @JoinColumn(name = "dormitory_id")
-    private List<Room> rooms;
+//    @OneToMany//(targetEntity = Student.class)
+//    @JoinColumn(name = "dormitory_id")
+//    private List<Room> rooms;
 
     public Dormitory() {
     }
 
-    public Dormitory(String name, List<Room> rooms) {
+    public Dormitory(String name/*, List<Room> rooms*/) {
         this.name = name;
-        this.rooms = rooms;
+//        this.rooms = rooms;
     }
 
     public int getId() {
@@ -41,11 +41,11 @@ public class Dormitory {
         this.name = name;
     }
 
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
-    }
+//    public List<Room> getRooms() {
+//        return rooms;
+//    }
+//
+//    public void setRooms(List<Room> rooms) {
+//        this.rooms = rooms;
+//    }
 }
