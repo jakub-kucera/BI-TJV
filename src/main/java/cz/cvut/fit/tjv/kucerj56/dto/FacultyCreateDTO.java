@@ -1,13 +1,13 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
-import java.util.Set;
+import java.util.List;
 
 public class FacultyCreateDTO {
 
     private final String name;
-    private final Set<Integer> studentIds;
+    private final List<Integer> studentIds;
 
-    public FacultyCreateDTO(String name, Set<Integer> studentIds) {
+    public FacultyCreateDTO(String name, List<Integer> studentIds) {
         this.name = name;
         this.studentIds = studentIds;
     }
@@ -16,7 +16,7 @@ public class FacultyCreateDTO {
     public String getName() {
         return name;
     }
-    public Set<Integer> getStudents() {
+    public List<Integer> getStudents() {
         return studentIds;
     }
 }

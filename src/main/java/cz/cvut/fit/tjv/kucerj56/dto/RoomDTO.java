@@ -5,18 +5,18 @@ import cz.cvut.fit.tjv.kucerj56.entity.Dormitory;
 import cz.cvut.fit.tjv.kucerj56.entity.Student;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 public class RoomDTO {
     private final int id;
     private final int numberRoom;
-    private final Character quarantineRoom;
+    private final Boolean quarantineRoom;
     private final Double pricePerDay;
     private final int numberOfBeds;
     private final Integer dormitoryId;
-    private final Set<Integer> studentIds;
+    private final List<Integer> studentIds;
 
-    public RoomDTO(int id, int numberRoom, Character quarantineRoom, Double pricePerDay, int numberOfBeds, Integer dormitoryId, Set<Integer> studentIds) {
+    public RoomDTO(int id, int numberRoom, Boolean quarantineRoom, Double pricePerDay, int numberOfBeds, Integer dormitoryId, List<Integer> studentIds) {
         this.id = id;
         this.numberRoom = numberRoom;
         this.quarantineRoom = quarantineRoom;
@@ -34,7 +34,7 @@ public class RoomDTO {
         return numberRoom;
     }
 
-    public Character getQuarantineRoom() {
+    public Boolean getQuarantineRoom() {
         return quarantineRoom;
     }
 
@@ -50,7 +50,7 @@ public class RoomDTO {
         return dormitoryId;
     }
 
-    public Set<Integer> getStudentIds() {
+    public List<Integer> getStudentIds() {
         return studentIds;
     }
 }

@@ -1,7 +1,7 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 public class StudentCreateDTO {
 
@@ -9,9 +9,9 @@ public class StudentCreateDTO {
     private final Date dateOfBirth;
     private final Integer roomId;
     private final Double stateOfAccount;
-    private final Set<Integer> facultyIds;
+    private final List<Integer> facultyIds;
 
-    public StudentCreateDTO(String name, Date dateOfBirth, Integer roomId, Double stateOfAccount, Set<Integer> facultyIds) {
+    public StudentCreateDTO(String name, Date dateOfBirth, Integer roomId, Double stateOfAccount, List<Integer> facultyIds) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.roomId = roomId;
@@ -35,7 +35,7 @@ public class StudentCreateDTO {
         return stateOfAccount;
     }
 
-    public Set<Integer> getFacultyIds() {
+    public List<Integer> getFacultyIds() {
         return facultyIds;
     }
 }

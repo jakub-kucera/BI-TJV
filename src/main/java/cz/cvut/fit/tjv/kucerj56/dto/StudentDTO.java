@@ -6,7 +6,7 @@ import cz.cvut.fit.tjv.kucerj56.entity.Room;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 public class StudentDTO {
 
@@ -15,9 +15,9 @@ public class StudentDTO {
     private final Date dateOfBirth;
     private final Integer roomId;
     private final Double stateOfAccount;
-    private final Set<Integer> facultyIds;
+    private final List<Integer> facultyIds;
 
-    public StudentDTO(int id, String name, Date dateOfBirth, Integer roomId, Double stateOfAccount, Set<Integer> facultyIds) {
+    public StudentDTO(int id, String name, Date dateOfBirth, Integer roomId, Double stateOfAccount, List<Integer> facultyIds) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -46,7 +46,7 @@ public class StudentDTO {
         return stateOfAccount;
     }
 
-    public Set<Integer> getFacultyIds() {
+    public List<Integer> getFacultyIds() {
         return facultyIds;
     }
 }

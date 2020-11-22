@@ -1,12 +1,12 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
-import java.util.Set;
+import java.util.List;
 
 public class DormitoryCreateDTO {
     private final String name;
-    private final Set<Integer> roomIds;
+    private final List<Integer> roomIds;
 
-    public DormitoryCreateDTO(String name, Set<Integer> roomIds) {
+    public DormitoryCreateDTO(String name, List<Integer> roomIds) {
         this.name = name;
         this.roomIds = roomIds;
     }
@@ -15,7 +15,7 @@ public class DormitoryCreateDTO {
         return name;
     }
 
-    public Set<Integer> getRoomIds() {
+    public List<Integer> getRoomIds() {
         return roomIds;
     }
 }

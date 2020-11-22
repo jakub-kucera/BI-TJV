@@ -4,15 +4,15 @@ import com.sun.istack.NotNull;
 import cz.cvut.fit.tjv.kucerj56.entity.Student;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 public class FacultyDTO {
 
     private final int id;
     private final String name;
-    private final Set<Integer> studentIds;
+    private final List<Integer> studentIds;
 
-    public FacultyDTO(int id, String name, Set<Integer> studentIDs) {
+    public FacultyDTO(int id, String name, List<Integer> studentIDs) {
         this.id = id;
         this.name = name;
         this.studentIds = studentIDs;
@@ -25,7 +25,7 @@ public class FacultyDTO {
     public String getName() {
         return name;
     }
-    public Set<Integer> getStudents() {
+    public List<Integer> getStudents() {
         return studentIds;
     }
 }

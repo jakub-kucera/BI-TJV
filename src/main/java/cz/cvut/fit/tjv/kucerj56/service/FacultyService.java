@@ -52,7 +52,7 @@ public class FacultyService {
     }
 
     private FacultyDTO toDTO(Faculty faculty) {
-        return new FacultyDTO(faculty.getId(), faculty.getName(), faculty.getStudents().stream().map(Student::getId).collect(Collectors.toSet()));
+        return new FacultyDTO(faculty.getId(), faculty.getName(), faculty.getStudents().stream().map(Student::getId).collect(Collectors.toList()));
     }
 
     private Optional<FacultyDTO> toDTO(Optional<Faculty> optionalFaculty) {
@@ -62,8 +62,14 @@ public class FacultyService {
         return Optional.of(toDTO(optionalFaculty.get()));
     }
 
-    public FacultyDTO create(FacultyCreateDTO facultyCreateDTO) {
-        return toDTO(facultyRepository.save( new Faculty(facultyCreateDTO.getName(),studentService.findByIds(facultyCreateDTO.getStudents()))));
+    public FacultyDTO create(FacultyCreateDTO facultyCreateDTO) throws Exception {
+        List<Student> students = studentService.findByIds(facultyCreateDTO.getStudents());
+        int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
+        if(studentsMissing == 0) {
+            throw new Exception("Number of students missing is: " + studentsMissing);
+        }
+
+        return toDTO(facultyRepository.save( new Faculty(facultyCreateDTO.getName(),students)));
     }
 
     @Transactional

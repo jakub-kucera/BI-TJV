@@ -19,7 +19,7 @@ public class Room {
 
     @NotNull
 //    @Column(name = "QUARANTINE_ROOM")
-    private Character quarantineRoom;
+    private Boolean quarantineRoom;
 
 //    @Column(name = "PRICE_PER_DAY")
     private Double pricePerDay;
@@ -38,7 +38,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(int numberRoom, Character quarantineRoom, Double pricePerDay, int numberOfBeds, Dormitory dormitory, List<Student> students) {
+    public Room(int numberRoom, Boolean quarantineRoom, Double pricePerDay, int numberOfBeds, Dormitory dormitory, List<Student> students) {
         this.numberRoom = numberRoom;
         this.quarantineRoom = quarantineRoom;
         this.pricePerDay = pricePerDay;
@@ -59,11 +59,11 @@ public class Room {
         this.numberRoom = numberRoom;
     }
 
-    public Character getQuarantineRoom() {
+    public Boolean getQuarantineRoom() {
         return quarantineRoom;
     }
 
-    public void setQuarantineRoom(Character quarantineRoom) {
+    public void setQuarantineRoom(Boolean quarantineRoom) {
         this.quarantineRoom = quarantineRoom;
     }
 

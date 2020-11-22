@@ -1,13 +1,14 @@
 package cz.cvut.fit.tjv.kucerj56.service;
 
+import cz.cvut.fit.tjv.kucerj56.dto.StudentCreateDTO;
 import cz.cvut.fit.tjv.kucerj56.dto.StudentDTO;
-import cz.cvut.fit.tjv.kucerj56.entity.Faculty;
-import cz.cvut.fit.tjv.kucerj56.entity.Student;
+import cz.cvut.fit.tjv.kucerj56.entity.*;
 import cz.cvut.fit.tjv.kucerj56.entity.Student;
 import cz.cvut.fit.tjv.kucerj56.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,10 +16,14 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final FacultyService facultyService;
+    private final RoomService roomService;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, FacultyService facultyService, RoomService roomService) {
         this.studentRepository = studentRepository;
+        this.facultyService = facultyService;
+        this.roomService = roomService;
     }
 
     public List<Student> findAll() {
@@ -52,7 +57,7 @@ public class StudentService {
                 student.getDateOfBirth(),
                 student.getRoom().getId(),
                 student.getStateOfAccount(),
-                student.getFaculties().stream().map(Faculty::getId).collect(Collectors.toSet())
+                student.getFaculties().stream().map(Faculty::getId).collect(Collectors.toList())
         );
     }
 
@@ -61,5 +66,51 @@ public class StudentService {
             return Optional.empty();
         }
         return Optional.of(toDTO(optionalDormitory.get()));
+    }
+
+    public StudentDTO create (StudentCreateDTO studentCreateDTO) throws Exception {
+        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
+        int facultiesMissing = studentCreateDTO.getFacultyIds().size() - faculties.size();
+        if(facultiesMissing != 0) {
+            throw new Exception("Number of faculties missing is: " + facultiesMissing);
+        }
+
+        Integer roomId = studentCreateDTO.getRoomId();
+        Room room = roomId == null ? null : roomService.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
+
+        Student student = new Student(
+                studentCreateDTO.getName(),
+                studentCreateDTO.getDateOfBirth(),
+                room,
+                studentCreateDTO.getStateOfAccount(),
+                faculties);
+        return toDTO(studentRepository.save(student));
+    }
+
+    @Transactional
+    public StudentDTO update (int id, StudentCreateDTO studentCreateDTO) throws Exception {
+        Optional<Student> optionalStudent = findById(id);
+        if(!optionalStudent.isPresent()) {
+            throw new Exception("No such student with id: " + id);
+        }
+        Student student = optionalStudent.get();
+
+        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
+        int facultiesMissing = studentCreateDTO.getFacultyIds().size() - faculties.size();
+        if(facultiesMissing != 0) {
+            throw new Exception("Number of faculties missing is: " + facultiesMissing);
+        }
+
+        Integer roomId = studentCreateDTO.getRoomId();
+        Room room = roomId == null ? null : roomService.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
+
+        student.setName(studentCreateDTO.getName());
+        student.setDateOfBirth(studentCreateDTO.getDateOfBirth());
+        student.setRoom(room);
+        student.setStateOfAccount(studentCreateDTO.getStateOfAccount());
+        student.setFaculties(faculties);
+
+        return toDTO(student);
+
     }
 }
