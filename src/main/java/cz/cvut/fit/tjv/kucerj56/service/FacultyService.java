@@ -22,28 +22,9 @@ public class FacultyService {
     private final StudentService studentService;
 
     @Autowired
-    public FacultyService(FacultyRepository facultyRepository, StudentRepository studentRepository) {
+    public FacultyService(FacultyRepository facultyRepository, StudentService studentService) {
         this.facultyRepository = facultyRepository;
-        this.studentRepository = studentRepository;
-    }
-
-    public FacultyDTO create(FacultyCreateDTO facultyCreateDTO) {
-        return toDTO(facultyRepository.save( new Faculty(facultyCreateDTO.getName(),studentService.findByIds(facultyCreateDTO.getStudents()))));
-    }
-
-    @Transactional
-    public FacultyDTO update(int id, FacultyCreateDTO facultyCreateDTO) throws Exception {
-        Optional<Faculty> optionalFaculty = facultyRepository.findById(id);
-        if (!optionalFaculty.isPresent()) {
-            throw new Exception("No such faculty with id: " + id);
-        }
-        Faculty faculty = optionalFaculty.get();
-        List<Student> students = studentService.findByIds(facultyCreateDTO.getStudents());
-        faculty.setName(facultyCreateDTO.getName());
-        faculty.setStudents(students);
-
-        return toDTO(faculty);
-
+        this.studentService = studentService;
     }
 
     public List<Faculty> findAll() {
@@ -67,7 +48,7 @@ public class FacultyService {
     }
 
     public Optional<FacultyDTO> findByIdAsDTO(int id) {
-        return  toDTO(facultyRepository.findById(id));
+        return  toDTO(findById(id));
     }
 
     private FacultyDTO toDTO(Faculty faculty) {
@@ -79,6 +60,29 @@ public class FacultyService {
             return Optional.empty();
         }
         return Optional.of(toDTO(optionalFaculty.get()));
+    }
+
+    public FacultyDTO create(FacultyCreateDTO facultyCreateDTO) {
+        return toDTO(facultyRepository.save( new Faculty(facultyCreateDTO.getName(),studentService.findByIds(facultyCreateDTO.getStudents()))));
+    }
+
+    @Transactional
+    public FacultyDTO update(int id, FacultyCreateDTO facultyCreateDTO) throws Exception {
+        Optional<Faculty> optionalFaculty = facultyRepository.findById(id);
+        if (!optionalFaculty.isPresent()) {
+            throw new Exception("No such faculty with id: " + id);
+        }
+        Faculty faculty = optionalFaculty.get();
+
+        List<Student> students = studentService.findByIds(facultyCreateDTO.getStudents());
+        int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
+        if(studentsMissing == 0) {
+            throw new Exception("Number of students missing is: " + studentsMissing);
+        }
+
+        faculty.setName(facultyCreateDTO.getName());
+        faculty.setStudents(students);
+        return toDTO(faculty);
     }
 
 }
