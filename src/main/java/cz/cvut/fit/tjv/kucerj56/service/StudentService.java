@@ -123,4 +123,20 @@ public class StudentService {
         return toDTO(student);
 
     }
+
+    @Transactional
+    public void delete (int id) throws Exception {
+//        Optional<Student> optionalStudent = findById(id);
+        if(!findById(id).isPresent()) {
+            throw new Exception("No such student with id: " + id);
+        }
+//        Student student = optionalStudent.get();
+
+        studentRepository.deleteById(id);
+//        studentRepository.delete(student);
+
+        if(findById(id).isPresent()) {
+            throw new Exception("Cannot delete student with id: " + id);
+        }
+    }
 }

@@ -95,4 +95,18 @@ public class DormitoryService {
 
         return toDTO(dormitory);
     }
+
+    @Transactional
+    public void delete(int id) throws Exception {
+        if (!findById(id).isPresent()) {
+            throw new Exception("No such dormitory with id: " + id);
+        }
+
+        dormitoryRepository.deleteById(id);
+
+        if (findById(id).isPresent()) {
+            throw new Exception("Cannot delete dormitory with id: " + id);
+        }
+
+    }
 }

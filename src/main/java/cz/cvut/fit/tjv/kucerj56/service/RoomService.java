@@ -125,4 +125,18 @@ public class RoomService {
 
         return toDTO(room);
     }
+
+    @Transactional
+    public void delete(int id) throws Exception {
+        if (!findById(id).isPresent()) {
+            throw new Exception("No such room with id: " + id);
+        }
+
+        roomRepository.deleteById(id);
+
+        if (findById(id).isPresent()) {
+            throw new Exception("Cannot delete room with id: " + id);
+        }
+
+    }
 }

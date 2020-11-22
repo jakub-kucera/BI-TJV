@@ -94,4 +94,18 @@ public class FacultyService {
         return toDTO(faculty);
     }
 
+    @Transactional
+    public void delete(int id) throws Exception {
+        if (!findById(id).isPresent()) {
+            throw new Exception("No such faculty with id: " + id);
+        }
+
+        facultyRepository.deleteById(id);
+
+        if (findById(id).isPresent()) {
+            throw new Exception("Cannot delete faculty with id: " + id);
+        }
+
+    }
+
 }
