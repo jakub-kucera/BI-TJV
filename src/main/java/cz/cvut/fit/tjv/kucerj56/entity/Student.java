@@ -4,36 +4,37 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Student {
     @Id
     @GeneratedValue
-    @Column(name = "ID_STUDENT")
+//    @Column(name = "ID_STUDENT")
     private int id;
 
     @NotNull
     private String name;
 
-    @Column(name = "DATE_OF_BIRTH")
+//    @Column(name = "DATE_OF_BIRTH")
     private Date dateOfBirth;
 
     @ManyToOne
-    @JoinColumn(name = "ROOM_ID_ROOM")
+    @JoinColumn(name = "room_id")
     private Room room;
 
-    @Column(name = "STATE_OF_ACCOUNT")
+//    @Column(name = "STATE_OF_ACCOUNT")
     private Double stateOfAccount;
 
     @ManyToMany
-    @JoinTable(name = "STUDY", joinColumns = @JoinColumn(name = "STUDENT_ID_STUDENT"), inverseJoinColumns = @JoinColumn(name = "FACULTY_ID_FACULTY"))
-    private Set<Faculty> faculties;
+    @JoinTable(name = "study", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "faculty_id"))
+    private List<Faculty> faculties;
 
     public Student() {
     }
 
-    public Student(String name, Date dateOfBirth, Room room, Double stateOfAccount, Set<Faculty> faculties) {
+    public Student(String name, Date dateOfBirth, Room room, Double stateOfAccount, List<Faculty> faculties) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.room = room;
@@ -77,11 +78,11 @@ public class Student {
         this.stateOfAccount = stateOfAccount;
     }
 
-    public Set<Faculty> getFaculties() {
+    public List<Faculty> getFaculties() {
         return faculties;
     }
 
-    public void setFaculties(Set<Faculty> faculties) {
+    public void setFaculties(List<Faculty> faculties) {
         this.faculties = faculties;
     }
 }

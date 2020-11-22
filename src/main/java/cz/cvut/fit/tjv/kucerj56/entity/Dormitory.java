@@ -3,27 +3,28 @@ package cz.cvut.fit.tjv.kucerj56.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
-@Entity
+@Entity()
 public class Dormitory {
     @Id
     @GeneratedValue
-    @Column(name = "ID_DORMATORY")
+//    @Column(name = "ID_DORMATORY")
     private int id;
 
     @NotNull
-    @Column(name = "NAME")
+//    @Column(name = "NAME")
     private String name;
 
     @OneToMany//(targetEntity = Student.class)
-    @JoinColumn(name = "DORMATORY_ID_DORMATORY")
-    private Set<Room> rooms;
+    @JoinColumn(name = "dormitory_id")
+    private List<Room> rooms;
 
     public Dormitory() {
     }
 
-    public Dormitory(String name, Set<Room> rooms) {
+    public Dormitory(String name, List<Room> rooms) {
         this.name = name;
         this.rooms = rooms;
     }
@@ -40,11 +41,11 @@ public class Dormitory {
         this.name = name;
     }
 
-    public Set<Room> getRooms() {
+    public List<Room> getRooms() {
         return rooms;
     }
 
-    public void setRooms(Set<Room> rooms) {
+    public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
 }

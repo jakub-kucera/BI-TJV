@@ -3,26 +3,27 @@ package cz.cvut.fit.tjv.kucerj56.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Faculty {
     @Id
     @GeneratedValue
-    @Column(name = "ID_FACULTY")
+//    @Column(name = "ID_FACULTY")
     private int id;
 
     @NotNull
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "STUDY", joinColumns = @JoinColumn(name = "FACULTY_ID_FACULTY"), inverseJoinColumns = @JoinColumn(name = "STUDENT_ID_STUDENT"))
-    private Set<Student> students;
+    @JoinTable(name = "study", joinColumns = @JoinColumn(name = "faculty_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> students;
 
     public Faculty() {}
 
 
-    public Faculty(String name, Set<Student> students) {
+    public Faculty(String name, List<Student> students) {
         this.name = name;
         this.students = students;
     }
@@ -39,11 +40,11 @@ public class Faculty {
         this.name = name;
     }
 
-    public Set<Student> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 }

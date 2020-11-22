@@ -3,41 +3,42 @@ package cz.cvut.fit.tjv.kucerj56.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Room {
     @Id
     @GeneratedValue
-    @Column(name = "ID_ROOM")
+//    @Column(name = "ID_ROOM")
     private int id;
 
     @NotNull
-    @Column(name = "NUMBER_ROOM")
+//    @Column(name = "NUMBER_ROOM")
     private int numberRoom;
 
     @NotNull
-    @Column(name = "QUARANTINE_ROOM")
+//    @Column(name = "QUARANTINE_ROOM")
     private Character quarantineRoom;
 
-    @Column(name = "PRICE_PER_DAY")
+//    @Column(name = "PRICE_PER_DAY")
     private Double pricePerDay;
 
-    @Column(name = "NUMBER_OF_BEDS")
+//    @Column(name = "NUMBER_OF_BEDS")
     private int numberOfBeds;
 
     @ManyToOne
-    @JoinColumn(name = "DORMATORY_ID_DORMATORY")
+    @JoinColumn(name = "dormitory_id")
     private Dormitory dormitory;
 
     @OneToMany//(targetEntity = Student.class)
-    @JoinColumn(name = "ROOM_ID_ROOM")
-    private Set<Student> students;
+    @JoinColumn(name = "room_id")
+    private List<Student> students;
 
     public Room() {
     }
 
-    public Room(int numberRoom, Character quarantineRoom, Double pricePerDay, int numberOfBeds, Dormitory dormitory, Set<Student> students) {
+    public Room(int numberRoom, Character quarantineRoom, Double pricePerDay, int numberOfBeds, Dormitory dormitory, List<Student> students) {
         this.numberRoom = numberRoom;
         this.quarantineRoom = quarantineRoom;
         this.pricePerDay = pricePerDay;
@@ -90,11 +91,11 @@ public class Room {
         this.dormitory = dormitory;
     }
 
-    public Set<Student> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 }
