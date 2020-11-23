@@ -31,6 +31,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -120,12 +121,13 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.2.9.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.2.9.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.2.9.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.ojdbc:ojdbc10:19.3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.ojdbc:ucp:19.3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.ojdbc:oraclepki:19.3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.ojdbc:osdt_cert:19.3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.ojdbc:osdt_core:19.3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.ojdbc:simplefan:19.3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.ojdbc:ons:19.3.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.oracle.ojdbc:ojdbc10:19.3.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.oracle.ojdbc:ucp:19.3.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.oracle.ojdbc:oraclepki:19.3.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.oracle.ojdbc:osdt_cert:19.3.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.oracle.ojdbc:osdt_core:19.3.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.oracle.ojdbc:simplefan:19.3.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.oracle.ojdbc:ons:19.3.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.h2database:h2:1.4.200" level="project" />
   </component>
 </module>
