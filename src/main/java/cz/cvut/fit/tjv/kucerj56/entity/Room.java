@@ -31,7 +31,7 @@ public class Room {
     @JoinColumn(name = "dormitory_id")
     private Dormitory dormitory;
 
-    @OneToMany//(targetEntity = Student.class)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST)//(targetEntity = Student.class)
     @JoinColumn(name = "room_id")
     private List<Student> students;
 

@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
-//    private final FacultyService facultyService;
+    //    private final FacultyService facultyService;
     private final FacultyRepository facultyRepository;
-//    private final RoomService roomService;
+    //    private final RoomService roomService;
     private final RoomRepository roomRepository;
 
     @Autowired
@@ -74,11 +74,11 @@ public class StudentService {
         return Optional.of(toDTO(optionalDormitory.get()));
     }
 
-    public StudentDTO create (StudentCreateDTO studentCreateDTO) throws Exception {
+    public StudentDTO create(StudentCreateDTO studentCreateDTO) throws Exception {
 //        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
         List<Faculty> faculties = facultyRepository.findAllById(studentCreateDTO.getFacultyIds());
         int facultiesMissing = studentCreateDTO.getFacultyIds().size() - faculties.size();
-        if(facultiesMissing != 0) {
+        if (facultiesMissing != 0) {
             throw new Exception("Number of faculties missing is: " + facultiesMissing);
         }
 
@@ -96,9 +96,9 @@ public class StudentService {
     }
 
     @Transactional
-    public StudentDTO update (int id, StudentCreateDTO studentCreateDTO) throws Exception {
+    public StudentDTO update(int id, StudentCreateDTO studentCreateDTO) throws Exception {
         Optional<Student> optionalStudent = findById(id);
-        if(!optionalStudent.isPresent()) {
+        if (!optionalStudent.isPresent()) {
             throw new Exception("No such student with id: " + id);
         }
         Student student = optionalStudent.get();
@@ -106,7 +106,7 @@ public class StudentService {
 //        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
         List<Faculty> faculties = facultyRepository.findAllById(studentCreateDTO.getFacultyIds());
         int facultiesMissing = studentCreateDTO.getFacultyIds().size() - faculties.size();
-        if(facultiesMissing != 0) {
+        if (facultiesMissing != 0) {
             throw new Exception("Number of faculties missing is: " + facultiesMissing);
         }
 
@@ -125,9 +125,9 @@ public class StudentService {
     }
 
     @Transactional
-    public void delete (int id) throws Exception {
+    public void delete(int id) throws Exception {
 //        Optional<Student> optionalStudent = findById(id);
-        if(!findById(id).isPresent()) {
+        if (!findById(id).isPresent()) {
             throw new Exception("No such student with id: " + id);
         }
 //        Student student = optionalStudent.get();
@@ -135,7 +135,7 @@ public class StudentService {
         studentRepository.deleteById(id);
 //        studentRepository.delete(student);
 
-        if(findById(id).isPresent()) {
+        if (findById(id).isPresent()) {
             throw new Exception("Cannot delete student with id: " + id);
         }
     }

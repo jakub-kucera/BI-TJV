@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 public class DormitoryService {
     private final DormitoryRepository dormitoryRepository;
     private final RoomRepository roomRepository;
-    private final RoomService roomService;
+//    private final RoomService roomService;
 
     @Autowired
-    public DormitoryService(DormitoryRepository dormitoryRepository, RoomService roomService, RoomRepository roomRepository) {
+    public DormitoryService(DormitoryRepository dormitoryRepository, /*RoomService roomService, */RoomRepository roomRepository) {
         this.dormitoryRepository = dormitoryRepository;
-        this.roomService = roomService;
+//        this.roomService = roomService;
         this.roomRepository = roomRepository;
     }
 
@@ -56,18 +56,18 @@ public class DormitoryService {
     }
 
     private Optional<DormitoryDTO> toDTO(Optional<Dormitory> optionalDormitory) {
-        if(!optionalDormitory.isPresent()) {
+        if (!optionalDormitory.isPresent()) {
             return Optional.empty();
         }
 
         return Optional.of(toDTO(optionalDormitory.get()));
     }
 
-    public DormitoryDTO create (DormitoryCreateDTO dormitoryCreateDTO) throws Exception {
+    public DormitoryDTO create(DormitoryCreateDTO dormitoryCreateDTO) throws Exception {
 //        List<Room> rooms = roomService.findByIds(dormitoryCreateDTO.getRoomIds());
         List<Room> rooms = roomRepository.findAllById(dormitoryCreateDTO.getRoomIds());
         int roomsMissing = dormitoryCreateDTO.getRoomIds().size() - rooms.size();
-        if(roomsMissing != 0) {
+        if (roomsMissing != 0) {
             throw new Exception("Number of rooms missing is: " + roomsMissing);
         }
 
@@ -76,9 +76,9 @@ public class DormitoryService {
     }
 
     @Transactional
-    public DormitoryDTO update (int id, DormitoryCreateDTO dormitoryCreateDTO) throws Exception {
+    public DormitoryDTO update(int id, DormitoryCreateDTO dormitoryCreateDTO) throws Exception {
         Optional<Dormitory> optionalDormitory = findById(id);
-        if(!optionalDormitory.isPresent()) {
+        if (!optionalDormitory.isPresent()) {
             throw new Exception("No such dormitory with id: " + id);
         }
         Dormitory dormitory = optionalDormitory.get();
@@ -86,7 +86,7 @@ public class DormitoryService {
 //        List<Room> rooms = roomService.findByIds(dormitoryCreateDTO.getRoomIds());
         List<Room> rooms = roomRepository.findAllById(dormitoryCreateDTO.getRoomIds());
         int roomsMissing = dormitoryCreateDTO.getRoomIds().size() - rooms.size();
-        if(roomsMissing != 0) {
+        if (roomsMissing != 0) {
             throw new Exception("Number of rooms missing is: " + roomsMissing);
         }
 
@@ -99,16 +99,14 @@ public class DormitoryService {
     @Transactional
     public void delete(int id) throws Exception {
         Optional<Dormitory> optionalDormitory = findById(id);
-        if(!optionalDormitory.isPresent()) {
+        if (!optionalDormitory.isPresent()) {
             throw new Exception("No such dormitory with id: " + id);
         }
-
-
-        List<Integer> roomIds = toDTO(optionalDormitory.get()).getRoomIds();
-        for (Integer roomId : roomIds) {
-            roomService.delete(roomId);
-        }
-
+//
+//        List<Integer> roomIds = toDTO(optionalDormitory.get()).getRoomIds();
+//        for (Integer roomId : roomIds) {
+//            roomService.delete(roomId);
+//        }
 
         dormitoryRepository.deleteById(id);
 

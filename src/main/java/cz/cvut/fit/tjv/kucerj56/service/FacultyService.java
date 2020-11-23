@@ -49,7 +49,7 @@ public class FacultyService {
     }
 
     public Optional<FacultyDTO> findByIdAsDTO(int id) {
-        return  toDTO(findById(id));
+        return toDTO(findById(id));
     }
 
     private FacultyDTO toDTO(Faculty faculty) {
@@ -57,7 +57,7 @@ public class FacultyService {
     }
 
     private Optional<FacultyDTO> toDTO(Optional<Faculty> optionalFaculty) {
-        if(!optionalFaculty.isPresent()) {
+        if (!optionalFaculty.isPresent()) {
             return Optional.empty();
         }
         return Optional.of(toDTO(optionalFaculty.get()));
@@ -67,11 +67,11 @@ public class FacultyService {
 //        List<Student> students = studentService.findByIds(facultyCreateDTO.getStudents());
         List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudents());
         int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
-        if(studentsMissing == 0) {
+        if (studentsMissing == 0) {
             throw new Exception("Number of students missing is: " + studentsMissing);
         }
 
-        return toDTO(facultyRepository.save( new Faculty(facultyCreateDTO.getName(),students)));
+        return toDTO(facultyRepository.save(new Faculty(facultyCreateDTO.getName(), students)));
     }
 
     @Transactional
@@ -85,7 +85,7 @@ public class FacultyService {
 //        List<Student> students = studentService.findByIds(facultyCreateDTO.getStudents());
         List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudents());
         int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
-        if(studentsMissing == 0) {
+        if (studentsMissing == 0) {
             throw new Exception("Number of students missing is: " + studentsMissing);
         }
 
