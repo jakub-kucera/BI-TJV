@@ -9,8 +9,10 @@ import cz.cvut.fit.tjv.kucerj56.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,7 @@ public class DormitoryService {
     }
 
     public List<Dormitory> findAll() {
+//        System.out.println("Number of dormitories(rep): " + dormitoryRepository.count());
         return dormitoryRepository.findAll();
     }
 
@@ -44,6 +47,8 @@ public class DormitoryService {
     }
 
     public Optional<Dormitory> findById(int id) {
+//        System.out.println(dormitoryRepository.findById(id).get().getName());
+
         return dormitoryRepository.findById(id);
     }
 
@@ -63,12 +68,17 @@ public class DormitoryService {
         return Optional.of(toDTO(optionalDormitory.get()));
     }
 
-    public DormitoryDTO create(DormitoryCreateDTO dormitoryCreateDTO) throws Exception {
+    public DormitoryDTO create(DormitoryCreateDTO dormitoryCreateDTO) {
 //        List<Room> rooms = roomService.findByIds(dormitoryCreateDTO.getRoomIds());
+
+        if(dormitoryRepository.findByName(dormitoryCreateDTO.getName()).isPresent()) {
+            throw new EntityExistsException("Dormitory already exists: " + dormitoryCreateDTO.getName());
+        }
+
         List<Room> rooms = roomRepository.findAllById(dormitoryCreateDTO.getRoomIds());
         int roomsMissing = dormitoryCreateDTO.getRoomIds().size() - rooms.size();
         if (roomsMissing != 0) {
-            throw new Exception("Number of rooms missing is: " + roomsMissing);
+            throw new NoSuchElementException("Number of rooms missing is: " + roomsMissing);
         }
 
         Dormitory dormitory = new Dormitory(dormitoryCreateDTO.getName(), rooms);
@@ -79,7 +89,8 @@ public class DormitoryService {
     public DormitoryDTO update(int id, DormitoryCreateDTO dormitoryCreateDTO) throws Exception {
         Optional<Dormitory> optionalDormitory = findById(id);
         if (!optionalDormitory.isPresent()) {
-            throw new Exception("No such dormitory with id: " + id);
+//            throw new Exception("No such dormitory with id: " + id);
+            throw new NoSuchElementException("No such dormitory with id: " + id);
         }
         Dormitory dormitory = optionalDormitory.get();
 
@@ -87,7 +98,7 @@ public class DormitoryService {
         List<Room> rooms = roomRepository.findAllById(dormitoryCreateDTO.getRoomIds());
         int roomsMissing = dormitoryCreateDTO.getRoomIds().size() - rooms.size();
         if (roomsMissing != 0) {
-            throw new Exception("Number of rooms missing is: " + roomsMissing);
+            throw new NoSuchElementException("Number of rooms missing is: " + roomsMissing);
         }
 
         dormitory.setName(dormitoryCreateDTO.getName());
@@ -97,11 +108,12 @@ public class DormitoryService {
     }
 
     @Transactional
-    public void delete(int id) throws Exception {
+    public void delete(int id)/* throws Exception */{
         Optional<Dormitory> optionalDormitory = findById(id);
-        if (!optionalDormitory.isPresent()) {
-            throw new Exception("No such dormitory with id: " + id);
-        }
+//        if (!optionalDormitory.isPresent()) {
+//            throw new ExistingEntityException();
+//            throw new Exception("No such dormitory with id: " + id);
+//        }
 //
 //        List<Integer> roomIds = toDTO(optionalDormitory.get()).getRoomIds();
 //        for (Integer roomId : roomIds) {
@@ -109,10 +121,10 @@ public class DormitoryService {
 //        }
 
         dormitoryRepository.deleteById(id);
-
-        if (findById(id).isPresent()) {
-            throw new Exception("Cannot delete dormitory with id: " + id);
-        }
+//
+//        if (findById(id).isPresent()) {
+//            throw new Exception("Cannot delete dormitory with id: " + id);
+//        }
 
     }
 }

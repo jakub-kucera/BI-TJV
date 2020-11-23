@@ -1,0 +1,52 @@
+GET http://localhost:8080/api/dormitories
+
+###
+
+
+POST http://localhost:8080/api/dormitories
+Content-Type: application/json
+
+{
+"name": "Strahov",
+"roomIds": []
+}
+
+###
+POST http://localhost:8080/api/dormitories
+Content-Type: application/json
+
+{
+"name": "Podolí",
+"roomIds": []
+}
+
+###
+POST http://localhost:8080/api/dormitories
+Content-Type: application/json
+
+{
+"name": "Dejvická dormatory",
+"roomIds": []
+}
+
+###
+POST http://localhost:8080/api/dormitories
+Content-Type: application/json
+
+{
+"name": "Orlík",
+"roomIds": []
+}
+###
+POST http://localhost:8080/api/dormitories
+Content-Type: application/json
+
+{
+"name": "Bubenečská dormatory",
+"roomIds": []
+}
+
+###
+
+//#DELETE http://localhost:8080/api/dormitories/8
+
