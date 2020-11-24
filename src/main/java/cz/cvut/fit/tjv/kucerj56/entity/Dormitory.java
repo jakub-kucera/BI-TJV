@@ -17,7 +17,7 @@ public class Dormitory {
 //    @Column(name = "NAME")
     private String name;
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST)//(targetEntity = Student.class)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)//(targetEntity = Student.class)
     @JoinColumn(name = "DORMITORY_ID")
     private List<Room> rooms;
 

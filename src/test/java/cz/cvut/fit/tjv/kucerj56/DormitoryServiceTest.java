@@ -1,0 +1,71 @@
+package cz.cvut.fit.tjv.kucerj56;
+
+import cz.cvut.fit.tjv.kucerj56.dto.DormitoryCreateDTO;
+import cz.cvut.fit.tjv.kucerj56.dto.DormitoryDTO;
+import cz.cvut.fit.tjv.kucerj56.entity.Dormitory;
+import cz.cvut.fit.tjv.kucerj56.service.DormitoryService;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class DormitoryServiceTest {
+    private final DormitoryService dormitoryService;
+
+    @Autowired
+    public DormitoryServiceTest(DormitoryService dormitoryService) {
+        this.dormitoryService = dormitoryService;
+    }
+
+
+    @Test
+    @Order(1)
+    public void findNone() {
+        assertEquals(dormitoryService.findAllDTO().size(), 0);
+    }
+
+    @Test
+    @Order(2)
+    public void create() {
+        List<Integer> emptyRoomList = new ArrayList<>();
+        DormitoryCreateDTO newDormitory = new DormitoryCreateDTO("createTest", emptyRoomList);
+        DormitoryDTO createdDormitory = dormitoryService.create(newDormitory);
+        assertTrue(
+                newDormitory.getName().equals(createdDormitory.getName()) &&
+                        newDormitory.getRoomIds().equals(createdDormitory.getRoomIds()));
+    }
+
+    @Test
+    @Order(3)
+    public void findByAsDTOId() {
+        List<Integer> emptyRoomList = new ArrayList<>();
+        DormitoryCreateDTO newDormitory = new DormitoryCreateDTO("findByAsDTOId", emptyRoomList);
+        DormitoryDTO createdDormitory = dormitoryService.create(newDormitory);
+        Optional<DormitoryDTO> foundDormitoryDTOOptional = dormitoryService.findByIdAsDTO(createdDormitory.getId());
+
+        DormitoryDTO foundDormitoryDTO = foundDormitoryDTOOptional.orElseThrow(AssertionError::new);
+
+        assertEquals(foundDormitoryDTO, createdDormitory);
+
+
+    }
+
+    @Test
+    @Order(4)
+    public void deleteAll() {
+        List<DormitoryDTO> allDormitories = dormitoryService.findAllDTO();
+        allDormitories.forEach((x) -> dormitoryService.delete(x.getId()));
+        assertEquals(0, dormitoryService.findAllDTO().size());
+    }
+}

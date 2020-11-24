@@ -5,6 +5,7 @@ import cz.cvut.fit.tjv.kucerj56.entity.Room;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 public class DormitoryDTO {
     private final int id;
@@ -27,5 +28,20 @@ public class DormitoryDTO {
 
     public List<Integer> getRoomIds() {
         return roomIds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DormitoryDTO that = (DormitoryDTO) o;
+        return id == that.id &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(roomIds, that.roomIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, roomIds);
     }
 }

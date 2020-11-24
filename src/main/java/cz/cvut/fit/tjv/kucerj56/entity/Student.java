@@ -20,14 +20,14 @@ public class Student {
 //    @Column(name = "DATE_OF_BIRTH")
     private Date dateOfBirth;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     private Room room;
 
 //    @Column(name = "STATE_OF_ACCOUNT")
     private Double stateOfAccount;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "study", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "faculty_id"))
     private List<Faculty> faculties;
 

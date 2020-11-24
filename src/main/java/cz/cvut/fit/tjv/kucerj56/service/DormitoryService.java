@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -57,7 +59,10 @@ public class DormitoryService {
     }
 
     private DormitoryDTO toDTO(Dormitory dormitory) {
+        System.out.println("Dormitory room list:" + dormitory.getRooms());
+//        System.out.println("DormitoryDTO room list:" +  dormitory.getRooms().stream().map(Room::getId).collect(Collectors.toList()));
         return new DormitoryDTO(dormitory.getId(), dormitory.getName(), dormitory.getRooms().stream().map(Room::getId).collect(Collectors.toList()));
+//        return new DormitoryDTO(1, "empty", new ArrayList<>()); //todo delete
     }
 
     private Optional<DormitoryDTO> toDTO(Optional<Dormitory> optionalDormitory) {
@@ -68,12 +73,16 @@ public class DormitoryService {
         return Optional.of(toDTO(optionalDormitory.get()));
     }
 
+    @Transactional
     public DormitoryDTO create(DormitoryCreateDTO dormitoryCreateDTO) {
 //        List<Room> rooms = roomService.findByIds(dormitoryCreateDTO.getRoomIds());
 
         if(dormitoryRepository.findByName(dormitoryCreateDTO.getName()).isPresent()) {
             throw new EntityExistsException("Dormitory already exists: " + dormitoryCreateDTO.getName());
         }
+
+        System.out.println("dormitoryCreateDTO.getRoomIds(): " + dormitoryCreateDTO.getRoomIds());
+        System.out.println("roomRepository.findAllById(dormitoryCreateDTO.getRoomIds()): " + roomRepository.findAllById(dormitoryCreateDTO.getRoomIds()));
 
         List<Room> rooms = roomRepository.findAllById(dormitoryCreateDTO.getRoomIds());
         int roomsMissing = dormitoryCreateDTO.getRoomIds().size() - rooms.size();

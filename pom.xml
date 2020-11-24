@@ -54,7 +54,7 @@
 <!--            <scope>provided</scope>-->
 <!--        </dependency>-->
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.oracle.jdbc/ojdbc8 &ndash;&gt;-->
+        <!-- https://mvnrepository.com/artifact/com.oracle.jdbc/ojdbc8 -->
         <dependency>
             <groupId>com.oracle.ojdbc</groupId>
             <artifactId>ojdbc10</artifactId>

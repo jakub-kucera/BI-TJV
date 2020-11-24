@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DormitoryCreateDTO {
     private final String name;
@@ -17,5 +18,19 @@ public class DormitoryCreateDTO {
 
     public List<Integer> getRoomIds() {
         return roomIds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DormitoryCreateDTO that = (DormitoryCreateDTO) o;
+        return name.equals(that.name) &&
+                roomIds.equals(that.roomIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, roomIds);
     }
 }

@@ -27,11 +27,11 @@ public class Room {
 //    @Column(name = "NUMBER_OF_BEDS")
     private int numberOfBeds;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dormitory_id")
     private Dormitory dormitory;
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST)//(targetEntity = Student.class)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)//(targetEntity = Student.class)
     @JoinColumn(name = "room_id")
     private List<Student> students;
 
