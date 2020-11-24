@@ -63,6 +63,24 @@ public class DormitoryServiceTest {
 
     @Test
     @Order(4)
+    public void update() {
+        List<Integer> emptyRoomList = new ArrayList<>();
+        DormitoryCreateDTO newDormitory = new DormitoryCreateDTO("oldUpdate", emptyRoomList);
+        DormitoryDTO createdDormitory = dormitoryService.create(newDormitory);
+
+        DormitoryCreateDTO newUpdatedDormitory = new DormitoryCreateDTO("newUpdate", emptyRoomList);
+        DormitoryDTO updatedDormitory = dormitoryService.update(createdDormitory.getId(), newUpdatedDormitory);
+
+        Optional<DormitoryDTO> foundUpdatedDormitoryDTOOptional = dormitoryService.findByIdAsDTO(createdDormitory.getId());
+
+        DormitoryDTO foundUpdatedDormitoryDTO = foundUpdatedDormitoryDTOOptional.orElseThrow(AssertionError::new);
+
+        assertEquals(updatedDormitory, foundUpdatedDormitoryDTO);
+
+    }
+
+    @Test
+    @Order(100)
     public void deleteAll() {
         List<DormitoryDTO> allDormitories = dormitoryService.findAllDTO();
         allDormitories.forEach((x) -> dormitoryService.delete(x.getId()));

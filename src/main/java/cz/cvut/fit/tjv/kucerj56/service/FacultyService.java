@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -95,17 +96,11 @@ public class FacultyService {
     }
 
     @Transactional
-    public void delete(int id) throws Exception {
+    public void delete(int id) {
         if (!findById(id).isPresent()) {
-            throw new Exception("No such faculty with id: " + id);
+            throw new NoSuchElementException("No such faculty with id: " + id);
         }
-
         facultyRepository.deleteById(id);
-
-        if (findById(id).isPresent()) {
-            throw new Exception("Cannot delete faculty with id: " + id);
-        }
-
     }
 
 }

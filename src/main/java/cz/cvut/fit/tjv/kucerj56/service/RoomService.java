@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,13 +22,13 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final StudentRepository studentRepository;
     private final DormitoryRepository dormitoryRepository;
-//    private final StudentService studentService;
+    private final StudentService studentService;
 //    private final DormitoryService dormitoryService;
 
     @Autowired
-    public RoomService(RoomRepository roomRepository, /*StudentService studentService, , DormitoryService dormitoryService*/StudentRepository studentRepository, DormitoryRepository dormitoryRepository) {
+    public RoomService(RoomRepository roomRepository, StudentService studentService, /*, DormitoryService dormitoryService*/StudentRepository studentRepository, DormitoryRepository dormitoryRepository) {
         this.roomRepository = roomRepository;
-//        this.studentService = studentService;
+        this.studentService = studentService;
 //        this.dormitoryService = dormitoryService;
         this.studentRepository = studentRepository;
         this.dormitoryRepository = dormitoryRepository;
@@ -127,31 +128,16 @@ public class RoomService {
     }
 
     @Transactional
-    public void delete(int id) throws Exception {
+    public void delete(int id) {
         Optional<Room> optionalRoom = findById(id);
-        if (!optionalRoom.isPresent()) {
-            throw new Exception("No such room with id: " + id);
+
+        List<Integer> studentIds = toDTO(optionalRoom
+                .orElseThrow(() -> new NoSuchElementException("No such room with id: " + id)))
+                .getStudentIds();
+
+        for (Integer studentId : studentIds) {
+            studentService.delete(studentId);
         }
-
-//        Room room = optionalRoom.get();
-//        RoomDTO roomDTO = toDTO(room);
-//        List<Integer> studentIds = roomDTO.getStudentIds();
-//        int studentsMissing = room.getStudents().size() - studentIds.size();
-//        if(studentsMissing != 0) {
-//            throw new Exception("Number of rooms missing is: " + studentsMissing);
-//        }
-//        studentIds.forEach((x) -> studentService.delete(x));
-
-//        List<Integer> studentIds = toDTO(optionalRoom.get()).getStudentIds();
-//        for (Integer studentId : studentIds) {
-//            studentService.delete(studentId);
-//        }
-
         roomRepository.deleteById(id);
-
-        if (findById(id).isPresent()) {
-            throw new Exception("Cannot delete room with id: " + id);
-        }
-
     }
 }

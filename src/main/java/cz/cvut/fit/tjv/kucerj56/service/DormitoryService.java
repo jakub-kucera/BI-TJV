@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 public class DormitoryService {
     private final DormitoryRepository dormitoryRepository;
     private final RoomRepository roomRepository;
-//    private final RoomService roomService;
+    private final RoomService roomService;
 
     @Autowired
-    public DormitoryService(DormitoryRepository dormitoryRepository, /*RoomService roomService, */RoomRepository roomRepository) {
+    public DormitoryService(DormitoryRepository dormitoryRepository, RoomService roomService, RoomRepository roomRepository) {
         this.dormitoryRepository = dormitoryRepository;
-//        this.roomService = roomService;
+        this.roomService = roomService;
         this.roomRepository = roomRepository;
     }
 
@@ -95,7 +95,7 @@ public class DormitoryService {
     }
 
     @Transactional
-    public DormitoryDTO update(int id, DormitoryCreateDTO dormitoryCreateDTO) throws Exception {
+    public DormitoryDTO update(int id, DormitoryCreateDTO dormitoryCreateDTO) {
         Optional<Dormitory> optionalDormitory = findById(id);
         if (!optionalDormitory.isPresent()) {
 //            throw new Exception("No such dormitory with id: " + id);
@@ -119,21 +119,14 @@ public class DormitoryService {
     @Transactional
     public void delete(int id)/* throws Exception */{
         Optional<Dormitory> optionalDormitory = findById(id);
-//        if (!optionalDormitory.isPresent()) {
-//            throw new ExistingEntityException();
-//            throw new Exception("No such dormitory with id: " + id);
-//        }
-//
-//        List<Integer> roomIds = toDTO(optionalDormitory.get()).getRoomIds();
-//        for (Integer roomId : roomIds) {
-//            roomService.delete(roomId);
-//        }
 
+        List<Integer> roomIds = toDTO(optionalDormitory
+                .orElseThrow(() -> new NoSuchElementException("No such dormitory with id: " + id)))
+                .getRoomIds();
+
+        for (Integer roomId : roomIds) {
+            roomService.delete(roomId);
+        }
         dormitoryRepository.deleteById(id);
-//
-//        if (findById(id).isPresent()) {
-//            throw new Exception("Cannot delete dormitory with id: " + id);
-//        }
-
     }
 }
