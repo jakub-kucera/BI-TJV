@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RoomServiceTest {
     private final RoomService roomService;
-//    private final DormitoryService dormitoryService;
+    private final DormitoryService dormitoryService;
 
     @Autowired
     public RoomServiceTest(RoomService roomService, DormitoryService dormitoryService) {
@@ -86,45 +86,63 @@ public class RoomServiceTest {
                 .create(new DormitoryCreateDTO("dormitoryForRoomTestingUpdate", new ArrayList<>()));
         RoomCreateDTO newRoom = new RoomCreateDTO(
                 123, false, 2.0, 20, createdDormitory.getId(), emptyStudentList);
+        RoomDTO createdRoom = roomService.create(newRoom);
 
-        List<Integer> emptyRoomList = new ArrayList<>();
-        DormitoryCreateDTO newDormitory = new DormitoryCreateDTO("oldUpdate", emptyRoomList);
-        DormitoryDTO createdDormitory = dormitoryService.create(newDormitory);
+        RoomCreateDTO newUpdatedRoom = new RoomCreateDTO(
+                134323, false, 232.5, 1, createdDormitory.getId(), emptyStudentList);
+        RoomDTO updatedRoom = roomService.update(createdRoom.getId(), newUpdatedRoom);
 
-        DormitoryCreateDTO newUpdatedDormitory = new DormitoryCreateDTO("newUpdate", emptyRoomList);
-        DormitoryDTO updatedDormitory = dormitoryService.update(createdDormitory.getId(), newUpdatedDormitory);
+        Optional<RoomDTO> foundUpdatedRoomOptional = roomService.findByIdAsDTO(createdRoom.getId());
 
-        Optional<DormitoryDTO> foundUpdatedDormitoryDTOOptional = dormitoryService.findByIdAsDTO(createdDormitory.getId());
+        RoomDTO foundUpdatedRoomDTO = foundUpdatedRoomOptional.orElseThrow(AssertionError::new);
 
-        DormitoryDTO foundUpdatedDormitoryDTO = foundUpdatedDormitoryDTOOptional.orElseThrow(AssertionError::new);
-
-        assertEquals(updatedDormitory, foundUpdatedDormitoryDTO);
+        assertEquals(updatedRoom, foundUpdatedRoomDTO);
 
     }
 
+    @Test
+    @Order(5)
     public void findAllDTO() {
-        List<Integer> emptyRoomList = new ArrayList<>();
-        int oldNumberOfDormitories = dormitoryService.findAllDTO().size();
+        List<Integer> emptyList = new ArrayList<>();
+        int oldNumberOfRooms = roomService.findAllDTO().size();
 
-        dormitoryService.create(new DormitoryCreateDTO("findAllDTO1", emptyRoomList));
-        dormitoryService.create(new DormitoryCreateDTO("findAllDTO2", emptyRoomList));
-        dormitoryService.create(new DormitoryCreateDTO("findAllDTO3", emptyRoomList));
-        dormitoryService.create(new DormitoryCreateDTO("findAllDTO4", emptyRoomList));
-        dormitoryService.create(new DormitoryCreateDTO("findAllDTO5", emptyRoomList));
-        dormitoryService.create(new DormitoryCreateDTO("findAllDTO6", emptyRoomList));
-        dormitoryService.create(new DormitoryCreateDTO("findAllDTO7", emptyRoomList));
+        DormitoryDTO createdDormitory1 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForRoomTestingfindAllDTO1", emptyList));
+        DormitoryDTO createdDormitory2 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForRoomTestingfindAllDTO2", emptyList));
 
-        int newNumberOfDormitories = dormitoryService.findAllDTO().size();
+        roomService.create(new RoomCreateDTO(
+                1, true, 1.1, 10, createdDormitory1.getId(), emptyList));
+        roomService.create(new RoomCreateDTO(
+                2, true, 2.2, 20, createdDormitory2.getId(), emptyList));
+        roomService.create(new RoomCreateDTO(
+                3, true, 3.3, 30, createdDormitory1.getId(), emptyList));
+        roomService.create(new RoomCreateDTO(
+                4, true, 4.4, 40, createdDormitory2.getId(), emptyList));
+        roomService.create(new RoomCreateDTO(
+                5, true, 5.5, 50, createdDormitory1.getId(), emptyList));
+        roomService.create(new RoomCreateDTO(
+                6, true, 6.6, 60, createdDormitory2.getId(), emptyList));
+        roomService.create(new RoomCreateDTO(
+                7, true, 7.7, 70, createdDormitory1.getId(), emptyList));
 
-        assertEquals(oldNumberOfDormitories + 7, newNumberOfDormitories);
+
+        int newNumberOfRooms = roomService.findAllDTO().size();
+
+        assertEquals(oldNumberOfRooms + 7, newNumberOfRooms);
     }
 
 
     @Test
     @Order(100)
     public void deleteAll() {
-        List<DormitoryDTO> allDormitories = dormitoryService.findAllDTO();
-        allDormitories.forEach((x) -> dormitoryService.delete(x.getId()));
-        assertEquals(0, dormitoryService.findAllDTO().size());
+        List<RoomDTO> allRooms = roomService.findAllDTO();
+        int oldNumberOfDormitories = dormitoryService.findAllDTO().size();
+        allRooms.forEach((x) -> {
+            System.out.println(x.getNumberRoom());
+            roomService.delete(x.getId());});
+        int newNumberOfDormitories = dormitoryService.findAllDTO().size();
+
+        assertTrue(0 == roomService.findAllDTO().size() &&
+                newNumberOfDormitories == oldNumberOfDormitories);
+
     }
 }

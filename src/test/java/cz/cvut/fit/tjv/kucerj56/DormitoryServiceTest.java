@@ -79,6 +79,8 @@ public class DormitoryServiceTest {
 
     }
 
+    @Test
+    @Order(5)
     public void findAllDTO() {
         List<Integer> emptyRoomList = new ArrayList<>();
         int oldNumberOfDormitories = dormitoryService.findAllDTO().size();

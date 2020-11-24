@@ -32,7 +32,7 @@ public class Room {
 //    @ManyToOne(mappedBy="Dormitory")
     private Dormitory dormitory;
 
-    @OneToMany(/*orphanRemoval = true, */cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)//(targetEntity = Student.class)
+    @OneToMany(/*orphanRemoval = true, *//*cascade = CascadeType.PERSIST, */fetch = FetchType.EAGER)//(targetEntity = Student.class)
     @JoinColumn(name = "room_id")
     private List<Student> students;
 
