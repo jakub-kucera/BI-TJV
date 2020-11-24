@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RoomServiceTest {
     private final RoomService roomService;
     private final DormitoryService dormitoryService;
@@ -34,13 +34,13 @@ public class RoomServiceTest {
 
 
 //    @Test
-    @Order(1)//todo maybe dont use
+//    @Order(1)//todo maybe dont use
     public void findNone() {
         assertEquals(roomService.findAllDTO().size(), 0);
     }
 
     @Test
-    @Order(2)
+//    @Order(2)
     public void create() {
         List<Integer> emptyStudentList = new ArrayList<>();
         DormitoryDTO createdDormitory = dormitoryService
@@ -58,7 +58,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    @Order(3)
+//    @Order(3)
     public void findByAsDTOId() {
 
         List<Integer> emptyStudentList = new ArrayList<>();
@@ -78,7 +78,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    @Order(4)
+//    @Order(4)
     public void update() {
 
         List<Integer> emptyStudentList = new ArrayList<>();
@@ -101,7 +101,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    @Order(5)
+//    @Order(5)
     public void findAllDTO() {
         List<Integer> emptyList = new ArrayList<>();
         int oldNumberOfRooms = roomService.findAllDTO().size();
@@ -132,7 +132,7 @@ public class RoomServiceTest {
 
 
     @Test
-    @Order(100)
+//    @Order(100)
     public void deleteAll() {
         List<RoomDTO> allRooms = roomService.findAllDTO();
         int oldNumberOfDormitories = dormitoryService.findAllDTO().size();
