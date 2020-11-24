@@ -7,6 +7,7 @@ import cz.cvut.fit.tjv.kucerj56.entity.Room;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class StudentDTO {
 
@@ -48,5 +49,23 @@ public class StudentDTO {
 
     public List<Integer> getFacultyIds() {
         return facultyIds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentDTO that = (StudentDTO) o;
+        return id == that.id &&
+                name.equals(that.name) &&
+                dateOfBirth.equals(that.dateOfBirth) &&
+                roomId.equals(that.roomId) &&
+                stateOfAccount.equals(that.stateOfAccount) &&
+                facultyIds.equals(that.facultyIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, dateOfBirth, roomId, stateOfAccount, facultyIds);
     }
 }

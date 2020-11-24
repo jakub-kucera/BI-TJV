@@ -76,17 +76,17 @@ public class RoomService {
         return Optional.of(toDTO(optionalDormitory.get()));
     }
 
-    public RoomDTO create(RoomCreateDTO roomCreateDTO) throws Exception {
-//        List<Student> students = studentService.findByIds(roomCreateDTO.getStudentIds());
+    public RoomDTO create(RoomCreateDTO roomCreateDTO) {
         List<Student> students = studentRepository.findAllById(roomCreateDTO.getStudentIds());
         int studentsMissing = roomCreateDTO.getStudentIds().size() - students.size();
         if (studentsMissing != 0) {
-            throw new Exception("Number of rooms missing is: " + studentsMissing);
+            throw new NoSuchElementException("Number of students missing is: " + studentsMissing);
         }
 
         Integer dormitoryId = roomCreateDTO.getDormitoryId();
-//        Dormitory dormitory = dormitoryId == null ? null : dormitoryService.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
-        Dormitory dormitory = dormitoryId == null ? null : dormitoryRepository.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
+        Dormitory dormitory = dormitoryId == null ? null :
+                dormitoryRepository.findById(dormitoryId)
+                .orElseThrow(() -> new NoSuchElementException("No such dormitory with id: " + dormitoryId));
 
         Room room = new Room(
                 roomCreateDTO.getNumberRoom(),
@@ -99,23 +99,18 @@ public class RoomService {
     }
 
     @Transactional
-    public RoomDTO update(int id, RoomCreateDTO roomCreateDTO) throws Exception {
+    public RoomDTO update(int id, RoomCreateDTO roomCreateDTO) {
         Optional<Room> optionalRoom = findById(id);
-        if (!optionalRoom.isPresent()) {
-            throw new Exception("No such room with id: " + id);
-        }
-        Room room = optionalRoom.get();
+        Room room = optionalRoom.orElseThrow(() -> new NoSuchElementException("No such room with id: " + id));
 
-//        List<Student> students = studentService.findByIds(roomCreateDTO.getStudentIds());
         List<Student> students = studentRepository.findAllById(roomCreateDTO.getStudentIds());
         int studentsMissing = roomCreateDTO.getStudentIds().size() - students.size();
         if (studentsMissing != 0) {
-            throw new Exception("Number of rooms missing is: " + studentsMissing);
+            throw new NoSuchElementException("Number of students missing is: " + studentsMissing);
         }
 
         Integer dormitoryId = roomCreateDTO.getDormitoryId();
-//        Dormitory dormitory = dormitoryId == null ? null : dormitoryService.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
-        Dormitory dormitory = dormitoryId == null ? null : dormitoryRepository.findById(dormitoryId).orElseThrow(() -> new Exception("No such dormitory with id: " + dormitoryId));
+        Dormitory dormitory = dormitoryId == null ? null : dormitoryRepository.findById(dormitoryId).orElseThrow(() -> new NoSuchElementException("No such dormitory with id: " + dormitoryId));
 
         room.setNumberRoom(roomCreateDTO.getNumberRoom());
         room.setQuarantineRoom(roomCreateDTO.getQuarantineRoom());

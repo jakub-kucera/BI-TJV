@@ -64,30 +64,25 @@ public class FacultyService {
         return Optional.of(toDTO(optionalFaculty.get()));
     }
 
-    public FacultyDTO create(FacultyCreateDTO facultyCreateDTO) throws Exception {
-//        List<Student> students = studentService.findByIds(facultyCreateDTO.getStudents());
+    public FacultyDTO create(FacultyCreateDTO facultyCreateDTO) {
         List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudents());
         int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
-        if (studentsMissing == 0) {
-            throw new Exception("Number of students missing is: " + studentsMissing);
+        if (studentsMissing != 0) {
+            throw new NoSuchElementException("Number of students missing is: " + studentsMissing);
         }
 
         return toDTO(facultyRepository.save(new Faculty(facultyCreateDTO.getName(), students)));
     }
 
     @Transactional
-    public FacultyDTO update(int id, FacultyCreateDTO facultyCreateDTO) throws Exception {
+    public FacultyDTO update(int id, FacultyCreateDTO facultyCreateDTO) {
         Optional<Faculty> optionalFaculty = facultyRepository.findById(id);
-        if (!optionalFaculty.isPresent()) {
-            throw new Exception("No such faculty with id: " + id);
-        }
-        Faculty faculty = optionalFaculty.get();
+        Faculty faculty = optionalFaculty.orElseThrow(() ->  new NoSuchElementException("No such faculty with id: " + id));
 
-//        List<Student> students = studentService.findByIds(facultyCreateDTO.getStudents());
         List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudents());
         int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
-        if (studentsMissing == 0) {
-            throw new Exception("Number of students missing is: " + studentsMissing);
+        if (studentsMissing != 0) {
+            throw new NoSuchElementException("Number of students missing is: " + studentsMissing);
         }
 
         faculty.setName(facultyCreateDTO.getName());

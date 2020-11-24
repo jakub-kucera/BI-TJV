@@ -75,17 +75,15 @@ public class StudentService {
         return Optional.of(toDTO(optionalDormitory.get()));
     }
 
-    public StudentDTO create(StudentCreateDTO studentCreateDTO) throws Exception {
-//        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
+    public StudentDTO create(StudentCreateDTO studentCreateDTO) {
         List<Faculty> faculties = facultyRepository.findAllById(studentCreateDTO.getFacultyIds());
         int facultiesMissing = studentCreateDTO.getFacultyIds().size() - faculties.size();
         if (facultiesMissing != 0) {
-            throw new Exception("Number of faculties missing is: " + facultiesMissing);
+            throw new NoSuchElementException("Number of faculties missing is: " + facultiesMissing);
         }
 
         Integer roomId = studentCreateDTO.getRoomId();
-//        Room room = roomId == null ? null : roomService.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
-        Room room = roomId == null ? null : roomRepository.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
+        Room room = roomId == null ? null : roomRepository.findById(roomId).orElseThrow(() -> new NoSuchElementException("No such room with id: " + roomId));
 
         Student student = new Student(
                 studentCreateDTO.getName(),
@@ -97,32 +95,25 @@ public class StudentService {
     }
 
     @Transactional
-    public StudentDTO update(int id, StudentCreateDTO studentCreateDTO) throws Exception {
+    public StudentDTO update(int id, StudentCreateDTO studentCreateDTO) {
         Optional<Student> optionalStudent = findById(id);
-        if (!optionalStudent.isPresent()) {
-            throw new Exception("No such student with id: " + id);
-        }
-        Student student = optionalStudent.get();
+        Student student = optionalStudent.orElseThrow(() -> new NoSuchElementException("No such student with id: " + id));
 
-//        List<Faculty> faculties = facultyService.findByIds(studentCreateDTO.getFacultyIds());
         List<Faculty> faculties = facultyRepository.findAllById(studentCreateDTO.getFacultyIds());
         int facultiesMissing = studentCreateDTO.getFacultyIds().size() - faculties.size();
         if (facultiesMissing != 0) {
-            throw new Exception("Number of faculties missing is: " + facultiesMissing);
+            throw new NoSuchElementException("Number of faculties missing is: " + facultiesMissing);
         }
 
         Integer roomId = studentCreateDTO.getRoomId();
-//        Room room = roomId == null ? null : roomService.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
-        Room room = roomId == null ? null : roomRepository.findById(roomId).orElseThrow(() -> new Exception("No such room with id: " + roomId));
+        Room room = roomId == null ? null : roomRepository.findById(roomId).orElseThrow(() -> new NoSuchElementException("No such room with id: " + roomId));
 
         student.setName(studentCreateDTO.getName());
         student.setDateOfBirth(studentCreateDTO.getDateOfBirth());
         student.setRoom(room);
         student.setStateOfAccount(studentCreateDTO.getStateOfAccount());
         student.setFaculties(faculties);
-
         return toDTO(student);
-
     }
 
     @Transactional

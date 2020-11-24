@@ -6,6 +6,7 @@ import cz.cvut.fit.tjv.kucerj56.entity.Student;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 public class RoomDTO {
     private final int id;
@@ -52,5 +53,24 @@ public class RoomDTO {
 
     public List<Integer> getStudentIds() {
         return studentIds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoomDTO roomDTO = (RoomDTO) o;
+        return id == roomDTO.id &&
+                numberRoom == roomDTO.numberRoom &&
+                numberOfBeds == roomDTO.numberOfBeds &&
+                quarantineRoom.equals(roomDTO.quarantineRoom) &&
+                pricePerDay.equals(roomDTO.pricePerDay) &&
+                dormitoryId.equals(roomDTO.dormitoryId) &&
+                studentIds.equals(roomDTO.studentIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, numberRoom, quarantineRoom, pricePerDay, numberOfBeds, dormitoryId, studentIds);
     }
 }

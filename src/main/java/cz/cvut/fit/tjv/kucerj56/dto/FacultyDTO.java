@@ -5,6 +5,7 @@ import cz.cvut.fit.tjv.kucerj56.entity.Student;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 public class FacultyDTO {
 
@@ -27,5 +28,20 @@ public class FacultyDTO {
     }
     public List<Integer> getStudents() {
         return studentIds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FacultyDTO that = (FacultyDTO) o;
+        return id == that.id &&
+                name.equals(that.name) &&
+                studentIds.equals(that.studentIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, studentIds);
     }
 }

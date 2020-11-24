@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class FacultyCreateDTO {
 
@@ -18,5 +19,19 @@ public class FacultyCreateDTO {
     }
     public List<Integer> getStudents() {
         return studentIds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FacultyCreateDTO that = (FacultyCreateDTO) o;
+        return name.equals(that.name) &&
+                studentIds.equals(that.studentIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, studentIds);
     }
 }

@@ -79,6 +79,24 @@ public class DormitoryServiceTest {
 
     }
 
+    public void findAllDTO() {
+        List<Integer> emptyRoomList = new ArrayList<>();
+        int oldNumberOfDormitories = dormitoryService.findAllDTO().size();
+
+        dormitoryService.create(new DormitoryCreateDTO("findAllDTO1", emptyRoomList));
+        dormitoryService.create(new DormitoryCreateDTO("findAllDTO2", emptyRoomList));
+        dormitoryService.create(new DormitoryCreateDTO("findAllDTO3", emptyRoomList));
+        dormitoryService.create(new DormitoryCreateDTO("findAllDTO4", emptyRoomList));
+        dormitoryService.create(new DormitoryCreateDTO("findAllDTO5", emptyRoomList));
+        dormitoryService.create(new DormitoryCreateDTO("findAllDTO6", emptyRoomList));
+        dormitoryService.create(new DormitoryCreateDTO("findAllDTO7", emptyRoomList));
+
+        int newNumberOfDormitories = dormitoryService.findAllDTO().size();
+
+        assertEquals(oldNumberOfDormitories + 7, newNumberOfDormitories);
+    }
+
+
     @Test
     @Order(100)
     public void deleteAll() {
