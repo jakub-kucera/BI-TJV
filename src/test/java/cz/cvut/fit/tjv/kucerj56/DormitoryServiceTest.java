@@ -29,7 +29,7 @@ public class DormitoryServiceTest {
     }
 
 
-    @Test
+//    @Test
     @Order(1)
     public void findNone() {
         assertEquals(dormitoryService.findAllDTO().size(), 0);
