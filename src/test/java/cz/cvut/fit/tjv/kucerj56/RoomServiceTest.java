@@ -137,7 +137,7 @@ public class RoomServiceTest {
         List<RoomDTO> allRooms = roomService.findAllDTO();
         int oldNumberOfDormitories = dormitoryService.findAllDTO().size();
         allRooms.forEach((x) -> {
-            System.out.println(x.getNumberRoom());
+//            System.out.println(x.getNumberRoom());
             roomService.delete(x.getId());});
         int newNumberOfDormitories = dormitoryService.findAllDTO().size();
 

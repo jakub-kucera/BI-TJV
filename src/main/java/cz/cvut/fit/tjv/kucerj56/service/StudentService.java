@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -123,5 +124,28 @@ public class StudentService {
         }
 
         studentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public List<StudentDTO> chargeFeeAll() {
+        List<StudentDTO> studentsInDebt = new ArrayList<>();
+        studentRepository.findAll().forEach(s ->{
+            s.setStateOfAccount(s.getStateOfAccount() - s.getRoom().getPricePerDay());
+            if(s.getStateOfAccount() < 0) studentsInDebt.add(toDTO(s));
+        });
+
+        return studentsInDebt;
+    }
+
+    @Transactional
+    public List<StudentDTO> giveScholarShip(double scholarShipAmount) {
+        List<StudentDTO> awardedStudents = new ArrayList<>();
+        studentRepository.findAll().stream()
+                .filter(s -> s.getFaculties().size() > 1)
+                .forEach(s -> {
+                    s.setStateOfAccount(s.getStateOfAccount() + scholarShipAmount);
+                    awardedStudents.add(toDTO(s));
+                });
+        return awardedStudents;
     }
 }

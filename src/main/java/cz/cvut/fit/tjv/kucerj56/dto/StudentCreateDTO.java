@@ -1,6 +1,6 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,14 +46,14 @@ public class StudentCreateDTO {
         if (o == null || getClass() != o.getClass()) return false;
         StudentCreateDTO that = (StudentCreateDTO) o;
         return name.equals(that.name) &&
-                dateOfBirth.equals(that.dateOfBirth) &&
-                roomId.equals(that.roomId) &&
-                stateOfAccount.equals(that.stateOfAccount) &&
-                facultyIds.equals(that.facultyIds);
+                dateOfBirth.getTime() == that.dateOfBirth.getTime();/* &&*/
+//                roomId.equals(that.roomId) &&
+//                stateOfAccount.equals(that.stateOfAccount) &&
+//                facultyIds.equals(that.facultyIds);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, dateOfBirth, roomId, stateOfAccount, facultyIds);
+        return Objects.hash(name, dateOfBirth.getTime()/*, roomId, stateOfAccount, facultyIds*/);
     }
 }

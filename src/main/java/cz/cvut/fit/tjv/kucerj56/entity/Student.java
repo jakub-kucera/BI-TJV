@@ -3,7 +3,7 @@ package cz.cvut.fit.tjv.kucerj56.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 

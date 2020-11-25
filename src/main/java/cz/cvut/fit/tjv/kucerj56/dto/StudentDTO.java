@@ -5,7 +5,7 @@ import cz.cvut.fit.tjv.kucerj56.entity.Faculty;
 import cz.cvut.fit.tjv.kucerj56.entity.Room;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,16 +56,22 @@ public class StudentDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentDTO that = (StudentDTO) o;
+
+//        System.out.println(dateOfBirth);
+//        System.out.println(that.dateOfBirth);
+//        System.out.println(getDateOfBirth().getTime());
+//        System.out.println(that.getDateOfBirth().getTime());
+
         return id == that.id &&
                 name.equals(that.name) &&
-                dateOfBirth.equals(that.dateOfBirth) &&
-                roomId.equals(that.roomId) &&
-                stateOfAccount.equals(that.stateOfAccount) &&
-                facultyIds.equals(that.facultyIds);
+                dateOfBirth.getTime() == that.dateOfBirth.getTime();/* && */ //todo change date formatting
+//                roomId.equals(that.roomId) &&
+//                stateOfAccount.equals(that.stateOfAccount) &&
+//                facultyIds.equals(that.facultyIds);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dateOfBirth, roomId, stateOfAccount, facultyIds);
+        return Objects.hash(id, name, dateOfBirth.getTime()/*, roomId, stateOfAccount, facultyIds*/);
     }
 }
