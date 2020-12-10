@@ -9,6 +9,7 @@ import cz.cvut.fit.tjv.kucerj56.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -65,6 +66,10 @@ public class FacultyService {
     }
 
     public FacultyDTO create(FacultyCreateDTO facultyCreateDTO) {
+        if(facultyRepository.findByName(facultyCreateDTO.getName()).isPresent()) {
+            throw new EntityExistsException("Faculty already exists: " + facultyCreateDTO.getName());
+        }
+
         List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudents());
         int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
         if (studentsMissing != 0) {

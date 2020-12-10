@@ -1,0 +1,32 @@
+GET http://localhost:8080/api/faculties
+
+###
+
+
+POST http://localhost:8080/api/faculties
+Content-Type: application/json
+
+{
+"name": "FIT",
+"studentIds": []
+}
+
+###
+
+POST http://localhost:8080/api/faculties
+Content-Type: application/json
+
+{
+"name": "FEL",
+"studentIds": []
+}
+
+###
+
+
+
+
+###
+
+//#DELETE http://localhost:8080/api/dormitories/8
+

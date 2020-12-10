@@ -106,4 +106,5 @@ public class DormitoryServiceTest {
         allDormitories.forEach((x) -> dormitoryService.delete(x.getId()));
         assertEquals(0, dormitoryService.findAllDTO().size());
     }
+
 }

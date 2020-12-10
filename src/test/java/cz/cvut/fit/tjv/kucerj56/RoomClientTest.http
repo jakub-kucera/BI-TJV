@@ -1,0 +1,40 @@
+GET http://localhost:8080/api/rooms
+
+###
+
+
+POST http://localhost:8080/api/rooms
+Content-Type: application/json
+
+{
+"numberRoom": 5,
+"quarantineRoom": 0,
+"pricePerDay": 110.0,
+"numberOfBeds": 1,
+"dormitoryId": 1,
+"studentIds": []
+}
+
+###
+
+POST http://localhost:8080/api/rooms
+Content-Type: application/json
+
+{
+"numberRoom": 10,
+"quarantineRoom": 1,
+"pricePerDay": 55.0,
+"numberOfBeds": 9,
+"dormitoryId": 2,
+"studentIds": []
+}
+
+###
+
+
+
+
+###
+
+//#DELETE http://localhost:8080/api/dormitories/8
+

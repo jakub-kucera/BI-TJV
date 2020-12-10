@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 import static java.lang.Integer.parseInt;
 
 @RestController
-@RequestMapping("api/dormitories")
+@RequestMapping("/api/dormitories")
 public class DormitoryController {
     private final DormitoryService dormitoryService;
 
@@ -40,7 +40,8 @@ public class DormitoryController {
 
     @GetMapping("/{id}")
     public DormitoryDTO readOne(@PathVariable String id) {
-        return dormitoryService.findByIdAsDTO(parseInt(id)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No such dormitory with id: " + id));
+        return dormitoryService.findByIdAsDTO(parseInt(id))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No such dormitory with id: " + id));
     }
 
     @GetMapping
@@ -49,7 +50,7 @@ public class DormitoryController {
     }
 
     @PutMapping("/{id}")
-    public DormitoryDTO update(@PathVariable String id, @RequestBody DormitoryCreateDTO dormitoryCreateDTO) throws Exception {
+    public DormitoryDTO update(@PathVariable String id, @RequestBody DormitoryCreateDTO dormitoryCreateDTO) {
         try{
             return dormitoryService.update(parseInt(id),dormitoryCreateDTO);
         } catch (NoSuchElementException e) {

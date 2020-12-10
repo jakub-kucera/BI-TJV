@@ -27,7 +27,7 @@ public class Student {
 //    @Column(name = "STATE_OF_ACCOUNT")
     private Double stateOfAccount;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)//todo mappe by faculty?
     @JoinTable(name = "study", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "faculty_id"))
     private List<Faculty> faculties;
 

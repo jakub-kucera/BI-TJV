@@ -1,0 +1,38 @@
+GET http://localhost:8080/api/students
+
+###
+
+POST http://localhost:8080/api/students
+Content-Type: application/json
+
+{
+"name": "Jakub Kučera Jr.",
+"dateOfBirth": 944934300,
+"roomId": 21,
+"stateOfAccount": 1000000.0,
+"facultyIds": [24, 25]
+}
+
+###
+
+POST http://localhost:8080/api/students
+Content-Type: application/json
+
+{
+"numberRoom": 10,
+"quarantineRoom": 1,
+"pricePerDay": 55.0,
+"numberOfBeds": 9,
+"dormitoryId": 2,
+"studentIds": []
+}
+
+###
+
+
+
+
+###
+
+//#DELETE http://localhost:8080/api/dormitories/8
+
