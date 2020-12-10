@@ -2,15 +2,23 @@ GET http://localhost:8080/api/students
 
 ###
 
+GET http://localhost:8080/api/students/giveScholarShip/50
+
+###
+
+GET http://localhost:8080/api/students/12
+
+###
+
 POST http://localhost:8080/api/students
 Content-Type: application/json
 
 {
 "name": "Jakub Kučera Jr.",
 "dateOfBirth": 944934300,
-"roomId": 21,
+"roomId": 6,
 "stateOfAccount": 1000000.0,
-"facultyIds": [24, 25]
+"facultyIds": [8, 9]
 }
 
 ###
@@ -19,12 +27,11 @@ POST http://localhost:8080/api/students
 Content-Type: application/json
 
 {
-"numberRoom": 10,
-"quarantineRoom": 1,
-"pricePerDay": 55.0,
-"numberOfBeds": 9,
-"dormitoryId": 2,
-"studentIds": []
+  "name": "Mr. Testik",
+  "dateOfBirth": 944934300,
+  "roomId": 7,
+  "stateOfAccount": 1000.0,
+  "facultyIds": [9]
 }
 
 ###

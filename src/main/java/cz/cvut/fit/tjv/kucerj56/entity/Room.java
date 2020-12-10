@@ -1,6 +1,6 @@
 package cz.cvut.fit.tjv.kucerj56.entity;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -34,7 +34,7 @@ public class Room {
 
     @OneToMany(/*orphanRemoval = true, *//*cascade = CascadeType.PERSIST, */fetch = FetchType.EAGER)//(targetEntity = Student.class)
     @JoinColumn(name = "room_id")
-    private List<Student> students;
+    private List<Student> students;//todo fix
 
     public Room() {
     }

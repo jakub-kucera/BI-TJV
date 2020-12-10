@@ -1,6 +1,6 @@
 package cz.cvut.fit.tjv.kucerj56.entity;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,7 +18,7 @@ public class Student {
     private String name;
 
 //    @Column(name = "DATE_OF_BIRTH")
-    private Date dateOfBirth;
+    private Date dateOfBirth;//todo fix format
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")

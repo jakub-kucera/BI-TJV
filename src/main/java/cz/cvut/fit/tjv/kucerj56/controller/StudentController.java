@@ -34,6 +34,11 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/giveScholarShip/{amount}")
+    public List<StudentDTO> giveScholarShip(@PathVariable String amount) {
+        return studentService.giveScholarShip(parseInt(amount));
+    }
+
     @GetMapping("/{id}")
     public StudentDTO readOne(@PathVariable String id) {
         return studentService.findByIdAsDTO(parseInt(id))
