@@ -114,6 +114,7 @@ public class DormitoryService {
         for (Integer roomId : roomIds) {
             roomService.delete(roomId);
         }
+        System.out.println("deleting dormitory named: " + optionalDormitory.get().getName() + " ID: " + optionalDormitory.get().getId());
         dormitoryRepository.deleteById(id);
     }
 }

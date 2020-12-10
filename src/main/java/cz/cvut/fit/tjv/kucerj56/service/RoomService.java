@@ -133,7 +133,7 @@ public class RoomService {
         for (Integer studentId : studentIds) {
             studentService.delete(studentId);
         }
-        System.out.println("deleting room named: " + optionalRoom.get().getNumberRoom());
+//        System.out.println("deleting room named: " + optionalRoom.get().getNumberRoom() + " ID: " + optionalRoom.get().getId());
         roomRepository.deleteById(id);
     }
 }
