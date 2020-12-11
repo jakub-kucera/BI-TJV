@@ -47,10 +47,10 @@ class DormitoryControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .post("/api/dormitories")
-                        .accept("application/vhd.suz-dormitories+json")
                         .contentType("application/vhd.suz-dormitories+json")
-//                        .content("{ \"name\": \"" + dormitoryDTO.getName() + "\", \"roomIds\": [] }")
-                        .content("{ \"name\": \"dormitoryOne\", \"roomIds\": [] } ")
+                        .accept("application/vhd.suz-dormitories+json")
+//                        .content("{ \"name\": \"" + dormitoryDTO.getName() + "\", \"roomIds\": [ ] }")
+                        .content("{ \"name\": \"dormitoryOne\", \"roomIds\": [ ] } ")
         ).andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(dormitoryCreateDTO.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roomIds", CoreMatchers.is(dormitoryCreateDTO.getRoomIds())));
@@ -68,8 +68,8 @@ class DormitoryControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .get("/api/dormitories/{id}", dormitoryDTO.getId())
-                        .accept("application/vhd.suz-dormitories+json")
                         .contentType("application/vhd.suz-dormitories+json")
+                        .accept("application/vhd.suz-dormitories+json")
         ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(dormitoryDTO.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roomIds", CoreMatchers.is(dormitoryDTO.getRoomIds())));
@@ -87,8 +87,8 @@ class DormitoryControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .get("/api/dormitories")
-                        .accept("application/vhd.suz-dormitories+json")
                         .contentType("application/vhd.suz-dormitories+json")
+                        .accept("application/vhd.suz-dormitories+json")
         ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", CoreMatchers.is(dormitoryDTOOne.getName())))
@@ -109,10 +109,10 @@ class DormitoryControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .put("/api/dormitories/{id}", 1)
-                        .accept("application/vhd.suz-dormitories+json")
                         .contentType("application/vhd.suz-dormitories+json")
-                        .content("{ \"name\": \"" + dormitoryCreateDTONew.getName() + "\", \"roomIds\": [] }")
-//                        .content("{ \"name\": \"dormitoryOne\", \"roomIds\": [] } ")
+                        .accept("application/vhd.suz-dormitories+json")
+//                        .content("{ \"name\": \"" + dormitoryCreateDTONew.getName() + "\", \"roomIds\": [ ] }")
+                        .content("{ \"name\": \"dormitoryOne\", \"roomIds\": [ ] } ")
         ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(dormitoryCreateDTONew.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roomIds", CoreMatchers.is(dormitoryCreateDTONew.getRoomIds())));
@@ -127,8 +127,8 @@ class DormitoryControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .delete("/api/dormitories/{id}", "1")
-                        .accept("application/vhd.suz-dormitories+json")
                         .contentType("application/vhd.suz-dormitories+json")
+                        .accept("application/vhd.suz-dormitories+json")
         ).andExpect(MockMvcResultMatchers.status().isOk());
 
         Mockito.verify(dormitoryService, Mockito.atLeastOnce()).delete(1);
