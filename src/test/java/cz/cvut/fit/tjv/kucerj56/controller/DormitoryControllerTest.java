@@ -49,8 +49,8 @@ class DormitoryControllerTest {
                         .post("/api/dormitories")
                         .accept("application/vhd.suz-dormitories+json")
                         .contentType("application/vhd.suz-dormitories+json")
-                        .content("{ \"name\": \"" + dormitoryDTO.getName() + "\", \"roomIds\": [] }")
-//                        .content("{ \"name\": \"dormitoryOne\", \"roomIds\": [] } ")
+//                        .content("{ \"name\": \"" + dormitoryDTO.getName() + "\", \"roomIds\": [] }")
+                        .content("{ \"name\": \"dormitoryOne\", \"roomIds\": [] } ")
         ).andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(dormitoryCreateDTO.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roomIds", CoreMatchers.is(dormitoryCreateDTO.getRoomIds())));
