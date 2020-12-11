@@ -1,4 +1,10 @@
 GET http://localhost:8080/api/dormitories
+Content-Type: application/vhd.suz-dormitories+json
+
+###
+
+GET http://localhost:8080/api/dormitories/1
+Content-Type: application/vhd.suz-dormitories+json
 
 ###
 

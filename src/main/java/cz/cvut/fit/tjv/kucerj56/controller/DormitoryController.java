@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 import static java.lang.Integer.parseInt;
 
 @RestController
-@RequestMapping("/api/dormitories")
+@RequestMapping(value = "/api/dormitories", produces = "application/vhd.suz-dormitories+json", consumes = "application/vhd.suz-dormitories+json")
 public class DormitoryController {
     private final DormitoryService dormitoryService;
 
