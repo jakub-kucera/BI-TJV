@@ -70,8 +70,8 @@ public class FacultyService {
             throw new EntityExistsException("Faculty already exists: " + facultyCreateDTO.getName());
         }
 
-        List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudents());
-        int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
+        List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudentIds());
+        int studentsMissing = facultyCreateDTO.getStudentIds().size() - students.size();
         if (studentsMissing != 0) {
             throw new NoSuchElementException("Number of students missing is: " + studentsMissing);
         }
@@ -84,8 +84,8 @@ public class FacultyService {
         Optional<Faculty> optionalFaculty = facultyRepository.findById(id);
         Faculty faculty = optionalFaculty.orElseThrow(() ->  new NoSuchElementException("No such faculty with id: " + id));
 
-        List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudents());
-        int studentsMissing = facultyCreateDTO.getStudents().size() - students.size();
+        List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudentIds());
+        int studentsMissing = facultyCreateDTO.getStudentIds().size() - students.size();
         if (studentsMissing != 0) {
             throw new NoSuchElementException("Number of students missing is: " + studentsMissing);
         }

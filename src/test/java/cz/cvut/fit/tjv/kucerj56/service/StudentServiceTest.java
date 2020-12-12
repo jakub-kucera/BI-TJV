@@ -1,4 +1,4 @@
-package cz.cvut.fit.tjv.kucerj56;
+package cz.cvut.fit.tjv.kucerj56.service;
 
 import com.sun.source.tree.AssertTree;
 import cz.cvut.fit.tjv.kucerj56.dto.*;
@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+//import java.sql.Date;
+import java.util.Date;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

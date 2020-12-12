@@ -1,11 +1,13 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import cz.cvut.fit.tjv.kucerj56.entity.Faculty;
 import cz.cvut.fit.tjv.kucerj56.entity.Room;
 
 import javax.persistence.*;
 import java.util.Date;
+//import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +15,7 @@ public class StudentDTO {
 
     private final int id;
     private final String name;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private final Date dateOfBirth;
     private final Integer roomId;
     private final Double stateOfAccount;
@@ -57,10 +60,10 @@ public class StudentDTO {
         if (o == null || getClass() != o.getClass()) return false;
         StudentDTO that = (StudentDTO) o;
 
-//        System.out.println(dateOfBirth);
-//        System.out.println(that.dateOfBirth);
-//        System.out.println(getDateOfBirth().getTime());
-//        System.out.println(that.getDateOfBirth().getTime());
+        System.out.println(dateOfBirth);
+        System.out.println(that.dateOfBirth);
+        System.out.println(getDateOfBirth().getTime());
+        System.out.println(that.getDateOfBirth().getTime());
 
         return id == that.id &&
                 name.equals(that.name) &&

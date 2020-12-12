@@ -26,7 +26,7 @@ public class FacultyDTO {
     public String getName() {
         return name;
     }
-    public List<Integer> getStudents() {
+    public List<Integer> getStudentIds() {
         return studentIds;
     }
 

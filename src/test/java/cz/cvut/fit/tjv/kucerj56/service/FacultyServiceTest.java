@@ -1,9 +1,7 @@
-package cz.cvut.fit.tjv.kucerj56;
+package cz.cvut.fit.tjv.kucerj56.service;
 
 import cz.cvut.fit.tjv.kucerj56.dto.FacultyCreateDTO;
 import cz.cvut.fit.tjv.kucerj56.dto.FacultyDTO;
-import cz.cvut.fit.tjv.kucerj56.service.FacultyService;
-import cz.cvut.fit.tjv.kucerj56.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,7 +37,7 @@ public class FacultyServiceTest {
         FacultyDTO createdFaculty = facultyService.create(newFaculty);
         assertTrue(
                 newFaculty.getName().equals(createdFaculty.getName()) &&
-                        newFaculty.getStudents().equals(createdFaculty.getStudents()));
+                        newFaculty.getStudentIds().equals(createdFaculty.getStudentIds()));
     }
 
     @Test

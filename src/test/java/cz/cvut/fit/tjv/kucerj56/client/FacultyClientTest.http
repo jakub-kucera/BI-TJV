@@ -2,6 +2,9 @@ GET http://localhost:8080/api/faculties
 
 ###
 
+GET http://localhost:8080/api/faculties/8
+
+###
 
 POST http://localhost:8080/api/faculties
 Content-Type: application/json

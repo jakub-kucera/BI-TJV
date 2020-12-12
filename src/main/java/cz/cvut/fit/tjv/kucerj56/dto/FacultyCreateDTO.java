@@ -9,10 +9,10 @@ public class FacultyCreateDTO {
     private final String name;
     private final List<Integer> studentIds;
 
-    public FacultyCreateDTO() {
-        name = "";
-        studentIds = new ArrayList<>();
-    }
+//    public FacultyCreateDTO() {
+//        name = "";
+//        studentIds = new ArrayList<>();
+//    }
 
     public FacultyCreateDTO(String name, List<Integer> studentIds) {
         this.name = name;
@@ -23,7 +23,7 @@ public class FacultyCreateDTO {
     public String getName() {
         return name;
     }
-    public List<Integer> getStudents() {
+    public List<Integer> getStudentIds() {
         return studentIds;
     }
 

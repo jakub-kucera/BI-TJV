@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.kucerj56.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import cz.cvut.fit.tjv.kucerj56.dto.StudentCreateDTO;
 import cz.cvut.fit.tjv.kucerj56.dto.StudentDTO;
 import cz.cvut.fit.tjv.kucerj56.service.StudentService;
@@ -14,7 +15,7 @@ import java.util.NoSuchElementException;
 import static java.lang.Integer.parseInt;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping(value = "/api/students", produces = "application/vhd.suz-students+json", consumes = "application/vhd.suz-students+json")
 public class StudentController {
     private final StudentService studentService;
 

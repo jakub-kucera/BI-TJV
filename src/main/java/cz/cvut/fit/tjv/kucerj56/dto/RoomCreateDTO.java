@@ -12,14 +12,14 @@ public class RoomCreateDTO {
     private final Integer dormitoryId;
     private final List<Integer> studentIds;
 
-    public RoomCreateDTO() {
-        numberRoom = 0;
-        quarantineRoom = false;
-        pricePerDay = 0.0;
-        numberOfBeds = 0;
-        dormitoryId = 0;
-        studentIds = new ArrayList<>();
-    }
+//    public RoomCreateDTO() {
+//        numberRoom = 0;
+//        quarantineRoom = false;
+//        pricePerDay = 0.0;
+//        numberOfBeds = 0;
+//        dormitoryId = 0;
+//        studentIds = new ArrayList<>();
+//    }
 
     public RoomCreateDTO(int numberRoom, Boolean quarantineRoom, Double pricePerDay, int numberOfBeds, Integer dormitoryId, List<Integer> studentIds) {
         this.numberRoom = numberRoom;

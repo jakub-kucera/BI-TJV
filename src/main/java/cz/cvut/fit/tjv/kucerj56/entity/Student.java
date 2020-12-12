@@ -1,8 +1,12 @@
 package cz.cvut.fit.tjv.kucerj56.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
+//import java.sql.Date;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +22,8 @@ public class Student {
     private String name;
 
 //    @Column(name = "DATE_OF_BIRTH")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dateOfBirth;//todo fix format
 
     @ManyToOne(fetch = FetchType.EAGER)

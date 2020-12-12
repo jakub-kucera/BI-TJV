@@ -1,4 +1,4 @@
-package cz.cvut.fit.tjv.kucerj56;
+package cz.cvut.fit.tjv.kucerj56.service;
 
 import cz.cvut.fit.tjv.kucerj56.dto.DormitoryCreateDTO;
 import cz.cvut.fit.tjv.kucerj56.dto.DormitoryDTO;
