@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class DormitoryCreateDTO {
+public class DormitoryCreateDTO /*implements MySerializableClass */{
     private final String name;
     private final List<Integer> roomIds;
 
     public DormitoryCreateDTO() {
-        name = "DEFUALT";//;
+        name = "";
         roomIds = new ArrayList<>();
     }
 

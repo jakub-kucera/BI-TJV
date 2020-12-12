@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +12,14 @@ public class StudentCreateDTO {
     private final Integer roomId;
     private final Double stateOfAccount;
     private final List<Integer> facultyIds;
+
+    public StudentCreateDTO() {
+        name = "";
+        dateOfBirth = new Date(0);
+        roomId = 0;
+        stateOfAccount = 0.0;
+        facultyIds = new ArrayList<>();
+    }
 
     public StudentCreateDTO(String name, Date dateOfBirth, Integer roomId, Double stateOfAccount, List<Integer> facultyIds) {
         this.name = name;
