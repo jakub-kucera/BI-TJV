@@ -1,11 +1,17 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class DormitoryCreateDTO {
     private final String name;
     private final List<Integer> roomIds;
+
+    public DormitoryCreateDTO() {
+        name = "DEFUALT";
+        roomIds = new ArrayList<>();
+    }
 
     public DormitoryCreateDTO(String name, List<Integer> roomIds) {
         this.name = name;
