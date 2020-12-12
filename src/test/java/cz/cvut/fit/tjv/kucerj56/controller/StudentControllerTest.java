@@ -164,4 +164,42 @@ class StudentControllerTest {
 
         Mockito.verify(studentService, Mockito.atLeastOnce()).delete(1);
     }
+
+    @Test
+    void giveSchollarShip() throws Exception {
+        StudentDTO studentDTOOne = new StudentDTO(
+                1, "studentOne", new Date(0), 1, 5000.0, List.of(1, 2));
+        StudentDTO studentDTOOneNew = new StudentDTO(
+                1, "studentOne", new Date(0), 1, 6000.0, List.of(1, 2));
+        StudentDTO studentDTOTwo = new StudentDTO(
+                2, "studentTwo", new Date(1), 2, 1000.0, List.of(2, 3));
+        StudentDTO studentDTOTwoNew = new StudentDTO(
+                2, "studentTwo", new Date(1), 2, 2000.0, List.of(2, 3));
+        StudentDTO studentDTOThree = new StudentDTO(
+                3, "studentThree", new Date(0), 3, 10000.0, List.of(1));
+
+        BDDMockito.given(studentService.giveScholarShip(1000.0)).willReturn(List.of(studentDTOOneNew, studentDTOTwoNew));
+
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .get("/api/students/giveScholarShip/{amount}", 1000.0)
+                        .contentType("application/vhd.suz-students+json")
+                        .accept("application/vhd.suz-students+json")
+        ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", CoreMatchers.is(studentDTOOneNew.getName())))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].dateOfBirth", CoreMatchers.is(studentDTOOne.getDateOfBirth())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].dateOfBirth", CoreMatchers.is("1970-01-01")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].roomId", CoreMatchers.is(studentDTOOneNew.getRoomId())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].stateOfAccount", CoreMatchers.is(studentDTOOneNew.getStateOfAccount())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].facultyIds", CoreMatchers.is(studentDTOOneNew.getFacultyIds())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name", CoreMatchers.is(studentDTOTwoNew.getName())))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].dateOfBirth", CoreMatchers.is(studentDTOTwo.getDateOfBirth())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].dateOfBirth", CoreMatchers.is("1970-01-01")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].roomId", CoreMatchers.is(studentDTOTwoNew.getRoomId())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].stateOfAccount", CoreMatchers.is(studentDTOTwoNew.getStateOfAccount())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].facultyIds", CoreMatchers.is(studentDTOTwoNew.getFacultyIds())));
+
+        Mockito.verify(studentService, Mockito.atLeastOnce()).giveScholarShip(1000.0);
+    }
 }

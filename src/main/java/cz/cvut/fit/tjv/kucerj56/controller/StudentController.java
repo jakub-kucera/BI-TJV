@@ -12,6 +12,7 @@ import javax.persistence.EntityExistsException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 @RestController
@@ -35,9 +36,9 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/giveScholarShip/{amount}")
+    @GetMapping("/giveScholarShip/{amount}")//todo change to put
     public List<StudentDTO> giveScholarShip(@PathVariable String amount) {
-        return studentService.giveScholarShip(parseInt(amount));
+        return studentService.giveScholarShip(parseDouble(amount));
     }
 
     @GetMapping("/{id}")
@@ -51,7 +52,7 @@ public class StudentController {
         return studentService.findAllDTO();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") //todo add statuses
     public StudentDTO update(@PathVariable String id, @RequestBody StudentCreateDTO studentCreateDTO) {
         try {
             return studentService.update(parseInt(id), studentCreateDTO);
