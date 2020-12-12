@@ -17,13 +17,13 @@ public class StudentCreateDTO {
     private final Double stateOfAccount;
     private final List<Integer> facultyIds;
 
-//    public StudentCreateDTO() {
-//        name = "";
-//        dateOfBirth = new Date(0);
-//        roomId = 0;
-//        stateOfAccount = 0.0;
-//        facultyIds = new ArrayList<>();
-//    }
+    public StudentCreateDTO() {
+        name = "";
+        dateOfBirth = new Date(0);
+        roomId = 0;
+        stateOfAccount = 0.0;
+        facultyIds = new ArrayList<>();
+    }
 
     public StudentCreateDTO(String name, Date dateOfBirth, Integer roomId, Double stateOfAccount, List<Integer> facultyIds) {
         this.name = name;

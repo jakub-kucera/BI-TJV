@@ -8,10 +8,10 @@ public class DormitoryCreateDTO /*implements MySerializableClass */{
     private final String name;
     private final List<Integer> roomIds;
 
-//    public DormitoryCreateDTO() {
-//        name = "";
-//        roomIds = new ArrayList<>();
-//    }
+    public DormitoryCreateDTO() {
+        name = "";
+        roomIds = new ArrayList<>();
+    }
 
     public DormitoryCreateDTO(String name, List<Integer> roomIds) {
         this.name = name;
