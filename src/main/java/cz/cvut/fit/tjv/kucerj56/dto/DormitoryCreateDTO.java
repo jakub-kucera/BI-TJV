@@ -9,7 +9,7 @@ public class DormitoryCreateDTO {
     private final List<Integer> roomIds;
 
     public DormitoryCreateDTO() {
-        name = "DEFUALT";
+        name = "DEFUALT";//;
         roomIds = new ArrayList<>();
     }
 
