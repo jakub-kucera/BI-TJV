@@ -182,7 +182,7 @@ class StudentControllerTest {
 
         mockMvc.perform(
                 MockMvcRequestBuilders
-                        .get("/api/students/giveScholarShip/{amount}", 1000.0)
+                        .put("/api/students/giveScholarShip/{amount}", 1000.0)
                         .contentType("application/vhd.suz-students+json")
                         .accept("application/vhd.suz-students+json")
         ).andExpect(MockMvcResultMatchers.status().isOk())

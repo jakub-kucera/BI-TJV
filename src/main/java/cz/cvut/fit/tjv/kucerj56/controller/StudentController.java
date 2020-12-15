@@ -16,7 +16,7 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 @RestController
-@RequestMapping(value = "/api/students", produces = "application/vhd.suz-students+json", consumes = "application/vhd.suz-students+json")
+@RequestMapping(value = "/api/students"/*, produces = "application/vhd.suz-students+json", consumes = "application/vhd.suz-students+json"*/)
 public class StudentController {
     private final StudentService studentService;
 
@@ -36,8 +36,9 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/giveScholarShip/{amount}")//todo change to put
+    @PutMapping("/giveScholarShip/{amount}")//todo change to put
     public List<StudentDTO> giveScholarShip(@PathVariable String amount) {
+
         return studentService.giveScholarShip(parseDouble(amount));
     }
 
