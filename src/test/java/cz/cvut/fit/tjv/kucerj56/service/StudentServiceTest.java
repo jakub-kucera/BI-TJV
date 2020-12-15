@@ -111,8 +111,8 @@ public class StudentServiceTest {
         List<Integer> emptyList = new ArrayList<>();
         int oldNumberOfStudents = studentService.findAllDTO().size();
 
-        DormitoryDTO createdDormitory1 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForRoomTestingFindAllDTO1", emptyList));
-        DormitoryDTO createdDormitory2 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForRoomTestingFindAllDTO2", emptyList));
+        DormitoryDTO createdDormitory1 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForStudentTestingFindAllDTO1", emptyList));
+        DormitoryDTO createdDormitory2 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForStudentTestingFindAllDTO2", emptyList));
 
         RoomDTO createdRoom1 = roomService.create(new RoomCreateDTO(
                 1, true, 1000.0, 10, createdDormitory1.getId(), emptyList));
@@ -160,8 +160,8 @@ public class StudentServiceTest {
     public void chargeFeeAll() {
         List<Integer> emptyList = new ArrayList<>();
 
-        DormitoryDTO createdDormitory1 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForRoomTestingChargeFeeAll1", emptyList));
-        DormitoryDTO createdDormitory2 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForRoomTestingChargeFeeAll2", emptyList));
+        DormitoryDTO createdDormitory1 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForStudentTestingChargeFeeAll1", emptyList));
+        DormitoryDTO createdDormitory2 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForStudentTestingChargeFeeAll2", emptyList));
 
         RoomDTO createdRoom1 = roomService.create(new RoomCreateDTO(
                 1, true, 1000.0, 10, createdDormitory1.getId(), emptyList));
@@ -216,8 +216,8 @@ public class StudentServiceTest {
     public void giveScholarShip() {
         List<Integer> emptyList = new ArrayList<>();
 
-        DormitoryDTO createdDormitory1 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForRoomTestingGiveScholarShip1", emptyList));
-        DormitoryDTO createdDormitory2 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForRoomTestingGiveScholarShip2", emptyList));
+        DormitoryDTO createdDormitory1 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForStudentTestingGiveScholarShip1", emptyList));
+        DormitoryDTO createdDormitory2 = dormitoryService.create(new DormitoryCreateDTO("dormitoryForStudentTestingGiveScholarShip2", emptyList));
 
         RoomDTO createdRoom1 = roomService.create(new RoomCreateDTO(
                 1, true, 1000.0, 10, createdDormitory1.getId(), emptyList));
