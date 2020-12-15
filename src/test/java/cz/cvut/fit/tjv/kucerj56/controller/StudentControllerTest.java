@@ -18,22 +18,18 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Date;
-//import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 
 @SpringBootTest
-@JsonFormat(pattern="yyyy-MM-dd")
+@JsonFormat(pattern = "yyyy-MM-dd")
 @AutoConfigureMockMvc
 class StudentControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-//    @Autowired
-//    private StudentController studentController;
 
     @MockBean
     private StudentService studentService;
@@ -67,7 +63,6 @@ class StudentControllerTest {
 
     @Test
     void readOne() throws Exception {
-//        Student studentOne = new Student("studentOne", new ArrayList<>());
         StudentDTO studentDTO = new StudentDTO(
                 1, "studentOne", new Date(0), 1, 5000.0, new ArrayList<>());
 
@@ -136,7 +131,6 @@ class StudentControllerTest {
                         .put("/api/students/{id}", 1)
                         .contentType("application/vhd.suz-students+json")
                         .accept("application/vhd.suz-students+json")
-//                        .content("{ \"name\": \"" + studentCreateDTONew.getName() + "\", \"roomIds\": [ ] }")
                         .content("{\"name\": \"studentOne\", \"dateOfBirth\": 0, \"roomId\": 1, \"stateOfAccount\": 5000.0, \"facultyIds\": []}")
 //                        .content("{\"name\": \"studentOne\", \"dateOfBirth\": " + new Date(0L) + ", \"roomId\": 1, \"stateOfAccount\": 5000.0, \"facultyIds\": []}")
 
@@ -153,8 +147,6 @@ class StudentControllerTest {
 
     @Test
     void delete() throws Exception {
-//        BDDMockito.given(studentService.findByIdAsDTO(1)).willReturn(null);
-
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .delete("/api/students/{id}", "1")
@@ -166,7 +158,7 @@ class StudentControllerTest {
     }
 
     @Test
-    void giveSchollarShip() throws Exception {
+    void giveScholarShip() throws Exception {
         StudentDTO studentDTOOne = new StudentDTO(
                 1, "studentOne", new Date(0), 1, 5000.0, List.of(1, 2));
         StudentDTO studentDTOOneNew = new StudentDTO(

@@ -10,21 +10,16 @@ import java.util.Set;
 public class Room {
     @Id
     @GeneratedValue
-//    @Column(name = "ID_ROOM")
     private int id;
 
     @NotNull
-//    @Column(name = "NUMBER_ROOM")
     private int numberRoom;
 
     @NotNull
-//    @Column(name = "QUARANTINE_ROOM")
     private Boolean quarantineRoom;
 
-//    @Column(name = "PRICE_PER_DAY")
     private Double pricePerDay;
 
-//    @Column(name = "NUMBER_OF_BEDS")
     private int numberOfBeds;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -32,7 +27,7 @@ public class Room {
 //    @ManyToOne(mappedBy="Dormitory")
     private Dormitory dormitory;
 
-    @OneToMany(/*orphanRemoval = true, *//*cascade = CascadeType.PERSIST, */fetch = FetchType.EAGER)//(targetEntity = Student.class)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     private List<Student> students;//todo fix
 

@@ -13,10 +13,8 @@ GET http://localhost:8080/api/students/12
 POST http://localhost:8080/api/students
 Content-Type: application/json
 
-//{"name": "Jakub Kučera Jr.", "dateOfBirth": 944934300, "roomId": 6, "stateOfAccount": 1000000.0, "facultyIds": []}
-
 {
-"name": "Jakub Kučera Jr.",
+"name": "Jakub Kučera",
 "dateOfBirth": 944934300,
 "roomId": 6,
 "stateOfAccount": 1000000.0,

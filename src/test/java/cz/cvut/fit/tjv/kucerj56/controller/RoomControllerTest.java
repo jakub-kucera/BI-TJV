@@ -28,9 +28,6 @@ class RoomControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-//    @Autowired
-//    private RoomController roomController;
-
     @MockBean
     private RoomService roomService;
 
@@ -61,7 +58,6 @@ class RoomControllerTest {
 
     @Test
     void readOne() throws Exception {
-//        Room roomOne = new Room("roomOne", new ArrayList<>());
         RoomDTO roomDTO = new RoomDTO(1, 10, false, 80.0, 2, 1, new ArrayList<>());
 
         BDDMockito.given(roomService.findByIdAsDTO(roomDTO.getId())).willReturn(Optional.of(roomDTO));
@@ -140,8 +136,6 @@ class RoomControllerTest {
 
     @Test
     void delete() throws Exception {
-//        BDDMockito.given(roomService.findByIdAsDTO(1)).willReturn(null);
-
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .delete("/api/rooms/{id}", "1")

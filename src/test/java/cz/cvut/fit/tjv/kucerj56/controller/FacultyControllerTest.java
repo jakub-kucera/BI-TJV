@@ -28,15 +28,12 @@ class FacultyControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-//    @Autowired
-//    private FacultyController facultyController;
-
     @MockBean
     private FacultyService facultyService;
 
     @Test
     void create() throws Exception {
-        FacultyDTO facultyDTO = new FacultyDTO(1,"facultyOne", new ArrayList<>());
+        FacultyDTO facultyDTO = new FacultyDTO(1, "facultyOne", new ArrayList<>());
         FacultyCreateDTO facultyCreateDTO = new FacultyCreateDTO("facultyOne", new ArrayList<>());
 
         BDDMockito.given(facultyService.create(facultyCreateDTO)).willReturn(facultyDTO);
@@ -57,8 +54,7 @@ class FacultyControllerTest {
 
     @Test
     void readOne() throws Exception {
-//        Faculty facultyOne = new Faculty("facultyOne", new ArrayList<>());
-        FacultyDTO facultyDTO = new FacultyDTO(1,"facultyOne", new ArrayList<>());
+        FacultyDTO facultyDTO = new FacultyDTO(1, "facultyOne", new ArrayList<>());
 
         BDDMockito.given(facultyService.findByIdAsDTO(facultyDTO.getId())).willReturn(Optional.of(facultyDTO));
 
@@ -76,8 +72,8 @@ class FacultyControllerTest {
 
     @Test
     void readAll() throws Exception {
-        FacultyDTO facultyDTOOne = new FacultyDTO(1,"facultyOne", new ArrayList<>());
-        FacultyDTO facultyDTOTwo = new FacultyDTO(2,"facultyTwo", new ArrayList<>());
+        FacultyDTO facultyDTOOne = new FacultyDTO(1, "facultyOne", new ArrayList<>());
+        FacultyDTO facultyDTOTwo = new FacultyDTO(2, "facultyTwo", new ArrayList<>());
 
         BDDMockito.given(facultyService.findAllDTO()).willReturn(List.of(facultyDTOOne, facultyDTOTwo));
 
@@ -99,7 +95,7 @@ class FacultyControllerTest {
     @Test
     void update() throws Exception {
         FacultyCreateDTO facultyCreateDTONew = new FacultyCreateDTO("facultyOne", new ArrayList<>());
-        FacultyDTO facultyDTONew = new FacultyDTO(1,"facultyOne", new ArrayList<>());
+        FacultyDTO facultyDTONew = new FacultyDTO(1, "facultyOne", new ArrayList<>());
 
         BDDMockito.given(facultyService.update(1, facultyCreateDTONew)).willReturn(facultyDTONew);
 
@@ -119,8 +115,6 @@ class FacultyControllerTest {
 
     @Test
     void delete() throws Exception {
-//        BDDMockito.given(facultyService.findByIdAsDTO(1)).willReturn(null);
-
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .delete("/api/faculties/{id}", "1")

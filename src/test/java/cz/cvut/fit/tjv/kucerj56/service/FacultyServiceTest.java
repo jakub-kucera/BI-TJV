@@ -24,8 +24,7 @@ public class FacultyServiceTest {
         this.studentService = studentService;
     }
 
-
-//    @Test
+    //    @Test
     public void findNone() {
         assertEquals(facultyService.findAllDTO().size(), 0);
     }
@@ -88,7 +87,6 @@ public class FacultyServiceTest {
 
         assertEquals(oldNumberOfFaculties + 7, newNumberOfFaculties);
     }
-
 
     @Test
     public void deleteAll() {

@@ -21,13 +21,11 @@ public class FacultyService {
 
     private final FacultyRepository facultyRepository;
     private final StudentRepository studentRepository;
-//    private final StudentService studentService;
 
     @Autowired
-    public FacultyService(FacultyRepository facultyRepository, /*StudentService studentService, */StudentRepository studentRepository) {
+    public FacultyService(FacultyRepository facultyRepository, StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
         this.studentRepository = studentRepository;
-//        this.studentService = studentService;
     }
 
     public List<Faculty> findAll() {
@@ -66,7 +64,7 @@ public class FacultyService {
     }
 
     public FacultyDTO create(FacultyCreateDTO facultyCreateDTO) {
-        if(facultyRepository.findByName(facultyCreateDTO.getName()).isPresent()) {
+        if (facultyRepository.findByName(facultyCreateDTO.getName()).isPresent()) {
             throw new EntityExistsException("Faculty already exists: " + facultyCreateDTO.getName());
         }
 
@@ -82,7 +80,7 @@ public class FacultyService {
     @Transactional
     public FacultyDTO update(int id, FacultyCreateDTO facultyCreateDTO) {
         Optional<Faculty> optionalFaculty = facultyRepository.findById(id);
-        Faculty faculty = optionalFaculty.orElseThrow(() ->  new NoSuchElementException("No such faculty with id: " + id));
+        Faculty faculty = optionalFaculty.orElseThrow(() -> new NoSuchElementException("No such faculty with id: " + id));
 
         List<Student> students = studentRepository.findAllById(facultyCreateDTO.getStudentIds());
         int studentsMissing = facultyCreateDTO.getStudentIds().size() - students.size();

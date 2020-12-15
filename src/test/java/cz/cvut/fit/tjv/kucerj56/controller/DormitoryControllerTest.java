@@ -2,10 +2,8 @@ package cz.cvut.fit.tjv.kucerj56.controller;
 
 import cz.cvut.fit.tjv.kucerj56.dto.DormitoryCreateDTO;
 import cz.cvut.fit.tjv.kucerj56.dto.DormitoryDTO;
-import cz.cvut.fit.tjv.kucerj56.entity.Dormitory;
 import cz.cvut.fit.tjv.kucerj56.service.DormitoryService;
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
@@ -22,7 +20,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,15 +28,12 @@ class DormitoryControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-//    @Autowired
-//    private DormitoryController dormitoryController;
-
     @MockBean
     private DormitoryService dormitoryService;
 
     @Test
     void create() throws Exception {
-        DormitoryDTO dormitoryDTO = new DormitoryDTO(1,"dormitoryOne", new ArrayList<>());
+        DormitoryDTO dormitoryDTO = new DormitoryDTO(1, "dormitoryOne", new ArrayList<>());
         DormitoryCreateDTO dormitoryCreateDTO = new DormitoryCreateDTO("dormitoryOne", new ArrayList<>());
 
         BDDMockito.given(dormitoryService.create(dormitoryCreateDTO)).willReturn(dormitoryDTO);
@@ -60,8 +54,7 @@ class DormitoryControllerTest {
 
     @Test
     void readOne() throws Exception {
-//        Dormitory dormitoryOne = new Dormitory("dormitoryOne", new ArrayList<>());
-        DormitoryDTO dormitoryDTO = new DormitoryDTO(1,"dormitoryOne", new ArrayList<>());
+        DormitoryDTO dormitoryDTO = new DormitoryDTO(1, "dormitoryOne", new ArrayList<>());
 
         BDDMockito.given(dormitoryService.findByIdAsDTO(dormitoryDTO.getId())).willReturn(Optional.of(dormitoryDTO));
 
@@ -79,8 +72,8 @@ class DormitoryControllerTest {
 
     @Test
     void readAll() throws Exception {
-        DormitoryDTO dormitoryDTOOne = new DormitoryDTO(1,"dormitoryOne", new ArrayList<>());
-        DormitoryDTO dormitoryDTOTwo = new DormitoryDTO(2,"dormitoryTwo", new ArrayList<>());
+        DormitoryDTO dormitoryDTOOne = new DormitoryDTO(1, "dormitoryOne", new ArrayList<>());
+        DormitoryDTO dormitoryDTOTwo = new DormitoryDTO(2, "dormitoryTwo", new ArrayList<>());
 
         BDDMockito.given(dormitoryService.findAllDTO()).willReturn(List.of(dormitoryDTOOne, dormitoryDTOTwo));
 
@@ -102,7 +95,7 @@ class DormitoryControllerTest {
     @Test
     void update() throws Exception {
         DormitoryCreateDTO dormitoryCreateDTONew = new DormitoryCreateDTO("dormitoryOne", new ArrayList<>());
-        DormitoryDTO dormitoryDTONew = new DormitoryDTO(1,"dormitoryOne", new ArrayList<>());
+        DormitoryDTO dormitoryDTONew = new DormitoryDTO(1, "dormitoryOne", new ArrayList<>());
 
         BDDMockito.given(dormitoryService.update(1, dormitoryCreateDTONew)).willReturn(dormitoryDTONew);
 
@@ -122,8 +115,6 @@ class DormitoryControllerTest {
 
     @Test
     void delete() throws Exception {
-//        BDDMockito.given(dormitoryService.findByIdAsDTO(1)).willReturn(null);
-
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .delete("/api/dormitories/{id}", "1")

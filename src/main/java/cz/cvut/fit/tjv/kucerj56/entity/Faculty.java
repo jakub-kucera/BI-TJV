@@ -4,13 +4,11 @@ import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Faculty {
     @Id
     @GeneratedValue
-//    @Column(name = "ID_FACULTY")
     private int id;
 
     @NotNull
@@ -20,8 +18,8 @@ public class Faculty {
     @JoinTable(name = "study", joinColumns = @JoinColumn(name = "faculty_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Student> students;
 
-    public Faculty() {}
-
+    public Faculty() {
+    }
 
     public Faculty(String name, List<Student> students) {
         this.name = name;

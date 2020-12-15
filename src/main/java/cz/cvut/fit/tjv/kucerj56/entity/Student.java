@@ -6,34 +6,29 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
-//import java.sql.Date;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Student {
     @Id
     @GeneratedValue
-//    @Column(name = "ID_STUDENT")
     private int id;
 
     @NotNull
     private String name;
 
-//    @Column(name = "DATE_OF_BIRTH")
-    @JsonFormat(pattern="yyyy-MM-dd")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;//todo fix format
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     private Room room;
 
-//    @Column(name = "STATE_OF_ACCOUNT")
     private Double stateOfAccount;
 
-    @ManyToMany(fetch = FetchType.EAGER)//todo mappe by faculty?
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "study", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "faculty_id"))
     private List<Faculty> faculties;
 

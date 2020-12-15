@@ -3,20 +3,18 @@ package cz.cvut.fit.tjv.kucerj56.entity;
 import javax.validation.constraints.NotNull;
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity()
 public class Dormitory {
     @Id
     @GeneratedValue
-//    @Column(name = "ID_DORMATORY")
     private int id;
 
     @NotNull
-//    @Column(name = "NAME")
     private String name;
 
-    @OneToMany(/*orphanRemoval = true,*/ /*cascade = CascadeType.PERSIST,*/ fetch = FetchType.EAGER)//(targetEntity = Student.class)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "DORMITORY_ID")
     private List<Room> rooms;
 

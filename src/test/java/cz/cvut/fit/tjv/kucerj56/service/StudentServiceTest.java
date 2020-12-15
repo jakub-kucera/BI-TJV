@@ -1,16 +1,11 @@
 package cz.cvut.fit.tjv.kucerj56.service;
 
-import com.sun.source.tree.AssertTree;
 import cz.cvut.fit.tjv.kucerj56.dto.*;
-import cz.cvut.fit.tjv.kucerj56.service.DormitoryService;
-import cz.cvut.fit.tjv.kucerj56.service.FacultyService;
-import cz.cvut.fit.tjv.kucerj56.service.RoomService;
-import cz.cvut.fit.tjv.kucerj56.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-//import java.sql.Date;
+
 import java.util.Date;
 import java.util.*;
 
@@ -18,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class StudentServiceTest {
     private final StudentService studentService;
     private final RoomService roomService;
@@ -33,15 +27,12 @@ public class StudentServiceTest {
         this.facultyService = facultyService;
     }
 
-
 //    @Test
-//    @Order(1)//todo maybe dont use
     public void findNone() {
         assertEquals(studentService.findAllDTO().size(), 0);
     }
 
     @Test
-//    @Order(2)
     public void create() {
         List<Integer> emptyList = new ArrayList<>();
         DormitoryDTO createdDormitory = dormitoryService
@@ -63,7 +54,6 @@ public class StudentServiceTest {
     }
 
     @Test
-//    @Order(3)
     public void findByAsDTOId() {
         List<Integer> emptyList = new ArrayList<>();
         DormitoryDTO createdDormitory = dormitoryService
@@ -88,7 +78,6 @@ public class StudentServiceTest {
     }
 
     @Test
-//    @Order(4)
     public void update() {
 
 
@@ -105,8 +94,6 @@ public class StudentServiceTest {
         StudentDTO createdStudent = studentService.create(newStudent);
 
 
-
-
         StudentCreateDTO newUpdatedStudent = new StudentCreateDTO(
                 "updatedStudentForTestingFindByAsDTOId", new Date(System.currentTimeMillis()), createdRoom.getId(), 5010.0, emptyList);
         StudentDTO updatedStudent = studentService.update(createdStudent.getId(), newUpdatedStudent);
@@ -120,7 +107,6 @@ public class StudentServiceTest {
     }
 
     @Test
-//    @Order(5)
     public void findAllDTO() {
         List<Integer> emptyList = new ArrayList<>();
         int oldNumberOfStudents = studentService.findAllDTO().size();
@@ -155,13 +141,11 @@ public class StudentServiceTest {
 
 
     @Test
-//    @Order(100)
     public void deleteAll() {
         List<StudentDTO> allStudents = studentService.findAllDTO();
         int oldNumberOfRooms = roomService.findAllDTO().size();
         int oldNumberOfDormitories = dormitoryService.findAllDTO().size();
         allStudents.forEach((x) -> {
-//            System.out.println(x.getNumberRoom());
             studentService.delete(x.getId());});
         int newNumberOfRooms = roomService.findAllDTO().size();
         int newNumberOfDormitories = dormitoryService.findAllDTO().size();

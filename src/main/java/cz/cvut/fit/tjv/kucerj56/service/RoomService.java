@@ -23,13 +23,11 @@ public class RoomService {
     private final StudentRepository studentRepository;
     private final DormitoryRepository dormitoryRepository;
     private final StudentService studentService;
-//    private final DormitoryService dormitoryService;
 
     @Autowired
-    public RoomService(RoomRepository roomRepository, StudentService studentService, /*, DormitoryService dormitoryService*/StudentRepository studentRepository, DormitoryRepository dormitoryRepository) {
+    public RoomService(RoomRepository roomRepository, StudentService studentService, StudentRepository studentRepository, DormitoryRepository dormitoryRepository) {
         this.roomRepository = roomRepository;
         this.studentService = studentService;
-//        this.dormitoryService = dormitoryService;
         this.studentRepository = studentRepository;
         this.dormitoryRepository = dormitoryRepository;
     }
@@ -86,7 +84,7 @@ public class RoomService {
         Integer dormitoryId = roomCreateDTO.getDormitoryId();
         Dormitory dormitory = dormitoryId == null ? null :
                 dormitoryRepository.findById(dormitoryId)
-                .orElseThrow(() -> new NoSuchElementException("No such dormitory with id: " + dormitoryId));
+                        .orElseThrow(() -> new NoSuchElementException("No such dormitory with id: " + dormitoryId));
 
         Room room = new Room(
                 roomCreateDTO.getNumberRoom(),
@@ -133,7 +131,6 @@ public class RoomService {
         for (Integer studentId : studentIds) {
             studentService.delete(studentId);
         }
-//        System.out.println("deleting room named: " + optionalRoom.get().getNumberRoom() + " ID: " + optionalRoom.get().getId());
         roomRepository.deleteById(id);
     }
 }

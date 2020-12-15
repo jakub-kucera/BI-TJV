@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -69,7 +67,7 @@ public class DormitoryService {
 
     @Transactional
     public DormitoryDTO create(DormitoryCreateDTO dormitoryCreateDTO) {
-        if(dormitoryRepository.findByName(dormitoryCreateDTO.getName()).isPresent()) {
+        if (dormitoryRepository.findByName(dormitoryCreateDTO.getName()).isPresent()) {
             throw new EntityExistsException("Dormitory already exists: " + dormitoryCreateDTO.getName());
         }
 
@@ -104,7 +102,7 @@ public class DormitoryService {
     }
 
     @Transactional
-    public void delete(int id){
+    public void delete(int id) {
         Optional<Dormitory> optionalDormitory = findById(id);
 
         List<Integer> roomIds = toDTO(optionalDormitory

@@ -2,10 +2,7 @@ package cz.cvut.fit.tjv.kucerj56.controller;
 
 import cz.cvut.fit.tjv.kucerj56.dto.DormitoryCreateDTO;
 import cz.cvut.fit.tjv.kucerj56.dto.DormitoryDTO;
-import cz.cvut.fit.tjv.kucerj56.entity.Dormitory;
 import cz.cvut.fit.tjv.kucerj56.service.DormitoryService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,7 +22,6 @@ public class DormitoryController {
         this.dormitoryService = dormitoryService;
     }
 
-//    @PatchMapping
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public DormitoryDTO create(@RequestBody DormitoryCreateDTO dormitoryCreateDTO) {
@@ -51,13 +47,12 @@ public class DormitoryController {
 
     @PutMapping("/{id}")
     public DormitoryDTO update(@PathVariable String id, @RequestBody DormitoryCreateDTO dormitoryCreateDTO) {
-        try{
-            return dormitoryService.update(parseInt(id),dormitoryCreateDTO);
+        try {
+            return dormitoryService.update(parseInt(id), dormitoryCreateDTO);
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.toString());
         }
     }
-
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {

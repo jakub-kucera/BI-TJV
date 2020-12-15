@@ -1,9 +1,5 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
-import com.sun.istack.NotNull;
-import cz.cvut.fit.tjv.kucerj56.entity.Room;
-
-import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 

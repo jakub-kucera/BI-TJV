@@ -1,6 +1,5 @@
 package cz.cvut.fit.tjv.kucerj56.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import cz.cvut.fit.tjv.kucerj56.dto.StudentCreateDTO;
 import cz.cvut.fit.tjv.kucerj56.dto.StudentDTO;
 import cz.cvut.fit.tjv.kucerj56.service.StudentService;
@@ -61,7 +60,6 @@ public class StudentController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.toString());
         }
     }
-
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {

@@ -9,6 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BasicTest {
     @Test
     public void demoTest() {
-        assertEquals(1,1);
+        assertEquals(1, 1);
     }
 }

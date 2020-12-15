@@ -10,8 +10,6 @@ GET http://localhost:8080/api/rooms/21
 POST http://localhost:8080/api/rooms
 Content-Type: application/json
 
-//{ "numberRoom": 5, "quarantineRoom": 0, "pricePerDay": 110.0, "numberOfBeds": 1, "dormitoryId": 1, "studentIds": [] }
-
 {
 "numberRoom": 5,
 "quarantineRoom": 0,

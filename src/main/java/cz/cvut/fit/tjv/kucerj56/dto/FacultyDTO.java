@@ -1,9 +1,5 @@
 package cz.cvut.fit.tjv.kucerj56.dto;
 
-import com.sun.istack.NotNull;
-import cz.cvut.fit.tjv.kucerj56.entity.Student;
-
-import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,13 +15,14 @@ public class FacultyDTO {
         this.studentIds = studentIDs;
     }
 
-
     public int getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
     public List<Integer> getStudentIds() {
         return studentIds;
     }

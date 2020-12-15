@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class DormitoryCreateDTO /*implements MySerializableClass */{
+public class DormitoryCreateDTO {
     private final String name;
     private final List<Integer> roomIds;
 

@@ -16,23 +16,18 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.sql.Date;
 
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
-    //    private final FacultyService facultyService;
     private final FacultyRepository facultyRepository;
-    //    private final RoomService roomService;
     private final RoomRepository roomRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository,/* FacultyService facultyService, */FacultyRepository facultyRepository,/* RoomService roomService, */RoomRepository roomRepository) {
+    public StudentService(StudentRepository studentRepository, FacultyRepository facultyRepository, RoomRepository roomRepository) {
         this.studentRepository = studentRepository;
-//        this.facultyService = facultyService;
         this.facultyRepository = facultyRepository;
         this.roomRepository = roomRepository;
-//        this.roomService = roomService;
     }
 
     public List<Student> findAll() {
@@ -130,9 +125,9 @@ public class StudentService {
     @Transactional
     public List<StudentDTO> chargeFeeAll() {
         List<StudentDTO> studentsInDebt = new ArrayList<>();
-        studentRepository.findAll().forEach(s ->{
+        studentRepository.findAll().forEach(s -> {
             s.setStateOfAccount(s.getStateOfAccount() - s.getRoom().getPricePerDay());
-            if(s.getStateOfAccount() < 0) studentsInDebt.add(toDTO(s));
+            if (s.getStateOfAccount() < 0) studentsInDebt.add(toDTO(s));
         });
 
         return studentsInDebt;
