@@ -57,7 +57,6 @@ public class RoomController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
-        System.out.println("delete id: " + id);
         roomService.delete(parseInt(id));
     }
 

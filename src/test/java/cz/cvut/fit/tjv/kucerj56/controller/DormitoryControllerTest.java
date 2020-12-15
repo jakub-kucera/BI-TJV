@@ -33,8 +33,8 @@ class DormitoryControllerTest {
 
     @Test
     void create() throws Exception {
-        DormitoryDTO dormitoryDTO = new DormitoryDTO(1, "dormitoryOne", new ArrayList<>());
-        DormitoryCreateDTO dormitoryCreateDTO = new DormitoryCreateDTO("dormitoryOne", new ArrayList<>());
+        DormitoryDTO dormitoryDTO = new DormitoryDTO(1010, "dormitoryControllerTestCreate1", new ArrayList<>());
+        DormitoryCreateDTO dormitoryCreateDTO = new DormitoryCreateDTO("dormitoryControllerTestCreate1", new ArrayList<>());
 
         BDDMockito.given(dormitoryService.create(dormitoryCreateDTO)).willReturn(dormitoryDTO);
 
@@ -44,7 +44,7 @@ class DormitoryControllerTest {
                         .contentType("application/vhd.suz-dormitories+json")
                         .accept("application/vhd.suz-dormitories+json")
 //                        .content("{ \"name\": \"" + dormitoryDTO.getName() + "\", \"roomIds\": [ ] }")
-                        .content("{\"name\": \"dormitoryOne\", \"roomIds\": []}")
+                        .content("{\"name\": \"dormitoryControllerTestCreate1\", \"roomIds\": []}")
         ).andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(dormitoryCreateDTO.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roomIds", CoreMatchers.is(dormitoryCreateDTO.getRoomIds())));
@@ -54,7 +54,7 @@ class DormitoryControllerTest {
 
     @Test
     void readOne() throws Exception {
-        DormitoryDTO dormitoryDTO = new DormitoryDTO(1, "dormitoryOne", new ArrayList<>());
+        DormitoryDTO dormitoryDTO = new DormitoryDTO(2010, "dormitoryControllerTestReadOne1", new ArrayList<>());
 
         BDDMockito.given(dormitoryService.findByIdAsDTO(dormitoryDTO.getId())).willReturn(Optional.of(dormitoryDTO));
 
@@ -67,13 +67,13 @@ class DormitoryControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(dormitoryDTO.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roomIds", CoreMatchers.is(dormitoryDTO.getRoomIds())));
 
-        Mockito.verify(dormitoryService, Mockito.atLeastOnce()).findByIdAsDTO(1);
+        Mockito.verify(dormitoryService, Mockito.atLeastOnce()).findByIdAsDTO(2010);
     }
 
     @Test
     void readAll() throws Exception {
-        DormitoryDTO dormitoryDTOOne = new DormitoryDTO(1, "dormitoryOne", new ArrayList<>());
-        DormitoryDTO dormitoryDTOTwo = new DormitoryDTO(2, "dormitoryTwo", new ArrayList<>());
+        DormitoryDTO dormitoryDTOOne = new DormitoryDTO(3010, "dormitoryControllerTestReadAll1", new ArrayList<>());
+        DormitoryDTO dormitoryDTOTwo = new DormitoryDTO(3020, "dormitoryControllerTestReadAll2", new ArrayList<>());
 
         BDDMockito.given(dormitoryService.findAllDTO()).willReturn(List.of(dormitoryDTOOne, dormitoryDTOTwo));
 
@@ -94,34 +94,34 @@ class DormitoryControllerTest {
 
     @Test
     void update() throws Exception {
-        DormitoryCreateDTO dormitoryCreateDTONew = new DormitoryCreateDTO("dormitoryOne", new ArrayList<>());
-        DormitoryDTO dormitoryDTONew = new DormitoryDTO(1, "dormitoryOne", new ArrayList<>());
+        DormitoryCreateDTO dormitoryCreateDTONew = new DormitoryCreateDTO("dormitoryControllerTestUpdate1", new ArrayList<>());
+        DormitoryDTO dormitoryDTONew = new DormitoryDTO(4010, "dormitoryControllerTestUpdate1", new ArrayList<>());
 
-        BDDMockito.given(dormitoryService.update(1, dormitoryCreateDTONew)).willReturn(dormitoryDTONew);
+        BDDMockito.given(dormitoryService.update(4010, dormitoryCreateDTONew)).willReturn(dormitoryDTONew);
 
         mockMvc.perform(
                 MockMvcRequestBuilders
-                        .put("/api/dormitories/{id}", 1)
+                        .put("/api/dormitories/{id}", 4010)
                         .contentType("application/vhd.suz-dormitories+json")
                         .accept("application/vhd.suz-dormitories+json")
 //                        .content("{ \"name\": \"" + dormitoryCreateDTONew.getName() + "\", \"roomIds\": [ ] }")
-                        .content("{ \"name\": \"dormitoryOne\", \"roomIds\": [ ] } ")
+                        .content("{ \"name\": \"dormitoryControllerTestUpdate1\", \"roomIds\": [ ] } ")
         ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(dormitoryCreateDTONew.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roomIds", CoreMatchers.is(dormitoryCreateDTONew.getRoomIds())));
 
-        Mockito.verify(dormitoryService, Mockito.atLeastOnce()).update(1, dormitoryCreateDTONew);
+        Mockito.verify(dormitoryService, Mockito.atLeastOnce()).update(4010, dormitoryCreateDTONew);
     }
 
     @Test
     void delete() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders
-                        .delete("/api/dormitories/{id}", "1")
+                        .delete("/api/dormitories/{id}", "5010")
                         .contentType("application/vhd.suz-dormitories+json")
                         .accept("application/vhd.suz-dormitories+json")
         ).andExpect(MockMvcResultMatchers.status().isOk());
 
-        Mockito.verify(dormitoryService, Mockito.atLeastOnce()).delete(1);
+        Mockito.verify(dormitoryService, Mockito.atLeastOnce()).delete(5010);
     }
 }
