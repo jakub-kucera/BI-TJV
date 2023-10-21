@@ -1,5 +1,5 @@
 Download this project (server) and extract it.\
-Download project (client) from gitlab.fit.cvut.cz/kucerj56/tjv_semestralka_client and extract it.\
+Download [project (client)](https://github.com/jakub-kucera/BI-TJV-client) and extract it.\
 Make sure you have maven installed.\
 Run command "mvn spring-boot:run" inside the server folder to start the server.\
 In folder of client project run command "mvn package".\
